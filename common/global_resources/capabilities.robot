@@ -1,7 +1,3 @@
-*** Variables ***
-# Remote Host
-
-
 *** Keywords ***
 Setup Desired Capabilities
     ${t_browser}=    Set Variable If
@@ -11,31 +7,28 @@ Setup Desired Capabilities
     ...    '${BROWSER}' == 'internetexplorer' or '${BROWSER}' == 'ie'    INTERNETEXPLORER
 
     ${t_dcDictionary}=    Create Dictionary
-
     ${t_defaultCapabilities}=    Evaluate   sys.modules['selenium.webdriver'].DesiredCapabilities.${t_browser}    sys, selenium.webdriver
     ${t_dcDictionary}=   Copy Dictionary   ${t_defaultCapabilities}
 
-    # Non-IE
+    # # Non-IE
     Run Keyword If    '${BROWSER}' != 'internetexplorer' or '${BROWSER}' != 'ie'
     ...    Set To Dictionary    ${t_dcDictionary}
     ...    platform=${PLATFORM}
     ...    nativeEvents=${NATIVE_EVENTS}
     ...    unexpectedAlertBehaviour=${ALERT_BEHAVIOUR}
 
-    # Headless Chrome
-    # Run Keyword If    ${HEADLESS_CHROME}
-    # ...    Run Keywords
-    # ...    Set Headless Chrome
-    # ...    AND    Set To Dictionary    ${t_dcDictionary}
-    # ...    chrome_options=${CHROME_OPTIONS}
-
     Set Suite Variable    ${DESIRED_CAPABILITIES}    ${t_dcDictionary}
     Log    ${t_dcDictionary}
 
 Set Headless Chrome
+    @{t_chromeArguments}=    Create List    --disable-infobars    --headless    --disable-gpu    --no-sandbox
     ${t_chromeOptions}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
-    Call Method    ${t_chromeOptions}    add_argument    headless
-    Call Method    ${t_chromeOptions}    add_argument    disable-gpu
-    # ${t_chromeOptions}=     Call Method     ${t_chromeOptions}    to_capabilities
+    : FOR    ${t_chromeOption}    IN    @{t_chromeArguments}
+    \    Call Method    ${t_chromeOptions}    add_argument    ${t_chromeOption}
+
+    ${t_chromeOptions}=     Run Keyword If    '${REMOTE_URL}' != '${EMPTY}'
+    ...    Call Method     ${t_chromeOptions}    to_capabilities
+    ...    ELSE    Set Variable    ${t_chromeOptions}
+
     Set Suite Variable    ${CHROME_OPTIONS}    ${t_chromeOptions}
     Log    ${CHROME_OPTIONS}
