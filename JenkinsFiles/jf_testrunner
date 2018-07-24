@@ -1,0 +1,83 @@
+#!/usr/bin/env groovy
+/*
+ * This Jenkinsfile is intended to run on https://ci.jenkins.io and may fail anywhere else.
+ * It makes assumptions about plugins being installed, labels mapping to nodes that can build what is needed, etc.
+ *
+ * The required labels are "java" and "docker" - "java" would be any node that can run Java builds. It doesn't need
+ * to have Java installed, but some setups may have nodes that shouldn't have heavier builds running on them, so we
+ * make this explicit. "docker" would be any node with docker installed.
+ */
+
+ pipeline {
+    agent {
+        label 'master'
+    }
+    parameters {
+       string (name: 'TEST_SUITE', defaultValue: 'LoginTest',
+              description: 'Test Suite')
+
+       string (name: 'WEB_BROWSER', defaultValue: 'chrome',
+              description: 'Browser to run tests')
+
+       string (name: 'BASE_URL', defaultValue: 'https://www.mercury.co.nz',
+              description: 'Production URI')
+
+       string (name: 'REMOTE_URL', defaultValue: '${FALSE}',
+              description: 'Default remote url vslue')
+
+       string (name: 'HEADLESS_CHROME', defaultValue: 'True',
+              description: 'Headless chrome')
+    }
+    stages {
+        stage ("Stage 1: Get agent details") {
+            steps {
+                sh '''#!/bin/bash
+                    python --version
+                    whoami
+                    sw_vers
+                    pwd
+                    ls -l
+                '''
+            }
+        }
+        stage ("Stage 2: Run robotframework tests.") {
+            environment {
+                PATH        = "${PATH}:/usr/local/bin/chromedriver"
+                AWS_ENABLED = 0
+            }
+            steps {
+                sh '''#!/bin/bash
+                    ls -l
+                    pwd
+                    pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:$WEB_BROWSER -v REMOTE_URL:$REMOTE_URL -v HEADLESS_CHROME:$HEADLESS_CHROME -i $TEST_SUITE -d Results .
+                '''
+            }
+        }
+
+    }
+    post {
+        always {
+            /* mail to:"agundayfrancis@gmail.com",
+                subject:"STATUS FOR PROJECT: ${currentBuild.fullDisplayName}",
+                body: "RESULT: ${currentBuild.result}" */
+            script{
+                try{
+                    echo "Send notifications for result: ${currentBuild.result}"
+
+                    } catch(e) {
+                        echo "Send notifications for result: ${currentBuild.result}"
+                        step([
+                            $class: 'RobotPublisher',
+                            outputPath: '.',
+                            passThreshold: 0,
+                            unstableThreshold: 0,
+                            otherFiles: "**/*.png"
+                        ])
+                        throw e
+                    }
+
+            }
+        }
+    }
+
+ }

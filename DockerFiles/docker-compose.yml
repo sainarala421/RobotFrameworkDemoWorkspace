@@ -1,0 +1,32 @@
+version: "3"
+services:
+  selenium-hub:
+    image: selenium/hub:local
+    container_name: selenium-hub
+    ports:
+      - "4444:4444"
+    environment:
+      - GRID_BROWSER_TIMEOUT=60000
+      - GRID_TIMEOUT=0
+  chrome:
+    image: selenium/node-chrome:local
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+      #- NODE_MAX_INSTANCES=1
+      - NODE_MAX_SESSION=0
+    links:
+      - selenium-hub
+  firefox:
+    image: selenium/node-firefox:local
+    depends_on:
+      - selenium-hub
+    environment:
+      - HUB_HOST=selenium-hub
+      - HUB_PORT=4444
+      # - NODE_MAX_INSTANCES=1
+      - NODE_MAX_SESSION=0
+    links:
+      - selenium-hub

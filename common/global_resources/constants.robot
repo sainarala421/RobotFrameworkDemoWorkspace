@@ -7,15 +7,15 @@ ${INTERVAL}               3s
 ${INTERNAL_TIMEOUT}       10s
 ${INTERNAL_INTERVAL}      2s
 ${SELENIUM_SPEED}         0.5
-${ALIAS}                  browser_instance_1
+${ALIAS}                  browser1
 ${REMOTE_URL}             http://localhost:4444/wd/hub
+${HEADLESS_CHROME}        False
 
 #=================================================#
 #                 URL EXTENSTIONS                 #
 #=================================================#
 ${BASE_URL}                             http://automationpractice.com
 ${AUTOMATION_PRACTICE_HOME_PAGE_URL}    ${BASE_URL}
-
 
 #=================================================#
 #                 GLOBAL CONSTANTS                #

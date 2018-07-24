@@ -7,10 +7,11 @@ Setup Desired Capabilities
     ...    '${BROWSER}' == 'internetexplorer' or '${BROWSER}' == 'ie'    INTERNETEXPLORER
 
     ${t_dcDictionary}=    Create Dictionary
-    ${t_defaultCapabilities}=    Evaluate   sys.modules['selenium.webdriver'].DesiredCapabilities.${t_browser}    sys, selenium.webdriver
+    ${t_defaultCapabilities}=    Evaluate   sys.modules['selenium.webdriver'].DesiredCapabilities.${t_browser}
+    ...    sys, selenium.webdriver
     ${t_dcDictionary}=   Copy Dictionary   ${t_defaultCapabilities}
 
-    # # Non-IE
+    # Non-IE
     Run Keyword If    '${BROWSER}' != 'internetexplorer' or '${BROWSER}' != 'ie'
     ...    Set To Dictionary    ${t_dcDictionary}
     ...    platform=${PLATFORM}
