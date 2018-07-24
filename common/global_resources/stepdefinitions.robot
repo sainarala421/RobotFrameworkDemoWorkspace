@@ -294,6 +294,12 @@ Wait Until AngularJS Is Loaded
    ...    angular.getTestability('${ANGULAR_CONTAINER}').whenStable(answer);
    Should Be Equal   ${retval}    loaded
 
+Focus And Click Element "${e_ELEMENT}"
+    [Documentation]    This keyword focus on an element before it clicks on it.
+    Run And Wait Until Keyword Succeeds    Element Should Be Visible    ${e_ELEMENT}
+    JQuery Focus Element "${e_ELEMENT}"
+    Click Element    ${e_ELEMENT}
+
 #==========================================================#
 #                     FLNDEV HELPERS
 #==========================================================#
