@@ -1,4 +1,5 @@
 *** Variables ***
+${BROWSER}                     chrome
 ${AUTOMATION_PRACTICE_HOME}    http://automationpractice.com
 ${LOGIN_BUTTON}                css=a.login
 ${EMAIL_TEXTFIELD}             id=email

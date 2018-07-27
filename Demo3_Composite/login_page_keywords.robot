@@ -3,7 +3,7 @@
 #           GIVEN STATEMENTS       #
 #==================================#
 User Opens "${PAGE_URI}" Page
-    Open Browser    ${ ${PAGE_URI} }    ${browser}
+    Open Browser    ${ ${PAGE_URI} }    ${BROWSER}
 
 #==================================#
 #           WHEN STATEMENTS        #

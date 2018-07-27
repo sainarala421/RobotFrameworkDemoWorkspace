@@ -9,7 +9,6 @@ Resource         login_page_keywords.robot
 ${username}             abc@234.com
 ${validPassword}        Test@123
 ${invalidPassword}      Test@123Invalid
-${browser}              chrome
 
 *** Test Cases
 Valid Login
