@@ -20,16 +20,3 @@ Setup Desired Capabilities
 
     Set Suite Variable    ${DESIRED_CAPABILITIES}    ${t_dcDictionary}
     Log    ${t_dcDictionary}
-
-Set Headless Chrome
-    @{t_chromeArguments}=    Create List    --disable-infobars    --headless    --disable-gpu    --no-sandbox
-    ${t_chromeOptions}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
-    : FOR    ${t_chromeOption}    IN    @{t_chromeArguments}
-    \    Call Method    ${t_chromeOptions}    add_argument    ${t_chromeOption}
-
-    ${t_chromeOptions}=     Run Keyword If    '${REMOTE_URL}' != '${EMPTY}'
-    ...    Call Method     ${t_chromeOptions}    to_capabilities
-    ...    ELSE    Set Variable    ${t_chromeOptions}
-
-    Set Suite Variable    ${CHROME_OPTIONS}    ${t_chromeOptions}
-    Log    ${CHROME_OPTIONS}
