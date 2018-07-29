@@ -10,23 +10,18 @@
 
  pipeline {
     agent {
+        // Node / agent for test execution
         label 'master'
     }
     parameters {
        string (name: 'TEST_SUITE', defaultValue: 'LoginTest',
               description: 'Test Suite')
-
-       string (name: 'WEB_BROWSER', defaultValue: 'chrome',
-              description: 'Browser to run tests')
-
-       string (name: 'BASE_URL', defaultValue: 'https://www.mercury.co.nz',
+       string (name: 'BASE_URL', defaultValue: 'http://automationpractice.com',
               description: 'Production URI')
-
-       string (name: 'REMOTE_URL', defaultValue: '${FALSE}',
+       string (name: 'REMOTE_URL', defaultValue: 'False',
               description: 'Default remote url vslue')
-
-       string (name: 'HEADLESS_CHROME', defaultValue: 'True',
-              description: 'Headless chrome')
+       string (name: 'HEADLESS_CHROME', defaultValue: 'False',
+              description: 'Headless chrome settings')
     }
     stages {
         stage ("Stage 1: Get agent details") {
@@ -41,19 +36,32 @@
             }
         }
         stage ("Stage 2: Run robotframework tests.") {
-            environment {
-                PATH        = "${PATH}:/usr/local/bin/chromedriver"
-                AWS_ENABLED = 0
-            }
-            steps {
-                sh '''#!/bin/bash
-                    ls -l
-                    pwd
-                    pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:$WEB_BROWSER -v REMOTE_URL:$REMOTE_URL -v HEADLESS_CHROME:$HEADLESS_CHROME -i $TEST_SUITE -d Results .
-                '''
+            // Run parallel tests in chrome (chromedriver), firefox (geckodriver) and safari.
+            // BROWSER values are hard coded. HEADLESS_CHROME is only applicable for chrome.
+            parallel {
+                stage ('Stage 2.1: Chrome Browser Test Execution'){
+                    steps {
+                        sh '''#!/bin/bash
+                            pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:chrome -v REMOTE_URL:$REMOTE_URL -v HEADLESS_CHROME:$HEADLESS_CHROME -i $TEST_SUITE -d Results .
+                        '''
+                    }
+                }
+                stage ('Stage 2.2: Firefox Browser Test Execution'){
+                    steps {
+                        sh '''#!/bin/bash
+                            pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:firefox -v REMOTE_URL:$REMOTE_URL -i $TEST_SUITE -d Results .
+                        '''
+                    }
+                }
+                stage ('Stage 2.3: Safari Browser Test Execution'){
+                    steps {
+                        sh '''#!/bin/bash
+                            pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:safari -v REMOTE_URL:$REMOTE_URL -i $TEST_SUITE -d Results .
+                        '''
+                    }
+                }
             }
         }
-
     }
     post {
         always {
@@ -75,9 +83,7 @@
                         ])
                         throw e
                     }
-
             }
         }
     }
-
  }
