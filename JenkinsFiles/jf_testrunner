@@ -85,7 +85,7 @@
                         }
                     }
                 }
-                stage ('Stage 2.3: Safari Browser Test Execution'){
+                /*stage ('Stage 2.3: Safari Browser Test Execution'){
                     steps {
                         sh '''#!/bin/bash
                             pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:safari -v REMOTE_URL:$REMOTE_URL -i $TEST_SUITE -d Results .
@@ -101,13 +101,13 @@
                                         outputPath: '.',
                                         passThreshold: 0,
                                         unstableThreshold: 0,
-                                        otherFiles: "**/*.png"
+                                        otherFiles: "**//*.png"
                                     ])
                                     throw e
                                 }
                         }
                     }
-                }
+                }*/
             }
         }
     }
