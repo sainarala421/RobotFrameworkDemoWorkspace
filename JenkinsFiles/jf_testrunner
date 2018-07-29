@@ -44,6 +44,22 @@
                         sh '''#!/bin/bash
                             pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:chrome -v REMOTE_URL:$REMOTE_URL -v HEADLESS_CHROME:$HEADLESS_CHROME -i $TEST_SUITE -d Results .
                         '''
+                        script{
+                            try{
+                                echo "Send notifications for result: ${currentBuild.result}"
+
+                                } catch(e) {
+                                    echo "Send notifications for result: ${currentBuild.result}"
+                                    step([
+                                        $class: 'RobotPublisher',
+                                        outputPath: '.',
+                                        passThreshold: 0,
+                                        unstableThreshold: 0,
+                                        otherFiles: "**/*.png"
+                                    ])
+                                    throw e
+                                }
+                        }
                     }
                 }
                 stage ('Stage 2.2: Firefox Browser Test Execution'){
@@ -51,6 +67,22 @@
                         sh '''#!/bin/bash
                             pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:firefox -v REMOTE_URL:$REMOTE_URL -i $TEST_SUITE -d Results .
                         '''
+                        script{
+                            try{
+                                echo "Send notifications for result: ${currentBuild.result}"
+
+                                } catch(e) {
+                                    echo "Send notifications for result: ${currentBuild.result}"
+                                    step([
+                                        $class: 'RobotPublisher',
+                                        outputPath: '.',
+                                        passThreshold: 0,
+                                        unstableThreshold: 0,
+                                        otherFiles: "**/*.png"
+                                    ])
+                                    throw e
+                                }
+                        }
                     }
                 }
                 stage ('Stage 2.3: Safari Browser Test Execution'){
@@ -58,6 +90,22 @@
                         sh '''#!/bin/bash
                             pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:safari -v REMOTE_URL:$REMOTE_URL -i $TEST_SUITE -d Results .
                         '''
+                        script{
+                            try{
+                                echo "Send notifications for result: ${currentBuild.result}"
+
+                                } catch(e) {
+                                    echo "Send notifications for result: ${currentBuild.result}"
+                                    step([
+                                        $class: 'RobotPublisher',
+                                        outputPath: '.',
+                                        passThreshold: 0,
+                                        unstableThreshold: 0,
+                                        otherFiles: "**/*.png"
+                                    ])
+                                    throw e
+                                }
+                        }
                     }
                 }
             }
