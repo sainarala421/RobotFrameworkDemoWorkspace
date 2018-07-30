@@ -46,7 +46,7 @@
                         '''
                         publishHTML([
                             allowMissing: false, 
-                            alwaysLinkToLastBuild: false, 
+                            alwaysLinkToLastBuild: true, 
                             keepAll: true,
                             alwaysLinkToLastBuild: true,
                             reportDir: 'Results', 
@@ -63,7 +63,7 @@
                         '''
                         publishHTML([
                             allowMissing: false, 
-                            alwaysLinkToLastBuild: false, 
+                            alwaysLinkToLastBuild: true, 
                             keepAll: true,
                             alwaysLinkToLastBuild: true,
                             reportDir: 'Results', 
@@ -112,7 +112,7 @@
                         echo "Send notifications for result: ${currentBuild.result}"
                             publishHTML([
                                 allowMissing: false, 
-                                alwaysLinkToLastBuild: false, 
+                                alwaysLinkToLastBuild: true, 
                                 keepAll: true,
                                 alwaysLinkToLastBuild: true,
                                 reportDir: 'Results', 
