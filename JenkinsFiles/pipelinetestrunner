@@ -43,15 +43,13 @@
             // BROWSER values are hard coded. HEADLESS_CHROME is only applicable for chrome.
             parallel {
                 stage ('Stage 2.1: Chrome Browser Test Execution'){
-                    steps {
-                        sh '''#!/bin/bash
-                            pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:chrome -v REMOTE_URL:$REMOTE_URL -v HEADLESS_CHROME:$HEADLESS_CHROME -i $TEST_SUITE -d Results .
-                        '''
-                        echo "Current Build Result: ${currentBuild.result}"
-                        echo "Current Build Current Result: ${currentBuild.currentResult}"
-                        echo "Current Build ID: ${currentBuild.id}"
-                        script{
-                            if ("${currentBuild.currentResult}" == "FAILURE"){
+                    post{
+                        always{
+                            echo "Current Build Result: ${currentBuild.result}"
+                            echo "Current Build Current Result: ${currentBuild.currentResult}"
+                            echo "Current Build ID: ${currentBuild.id}"
+                        }
+                        failure{
                                 publishHTML([
                                     allowMissing: false, 
                                     keepAll: true,
@@ -61,20 +59,22 @@
                                     reportName: 'Robot Framework Report - chrome', 
                                     reportTitles: 'Reports: chrome'
                                 ])
-                            }
                         }
+                    }
+                    steps {
+                        sh '''#!/bin/bash
+                            pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:chrome -v REMOTE_URL:$REMOTE_URL -v HEADLESS_CHROME:$HEADLESS_CHROME -i $TEST_SUITE -d Results .
+                        '''
                     }
                 }
                 stage ('Stage 2.2: Firefox Browser Test Execution'){
-                    steps {
-                        sh '''#!/bin/bash
-                            pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:firefox -v REMOTE_URL:$REMOTE_URL -i $TEST_SUITE -d Results .
-                        '''
-                        echo "Current Build Result: ${currentBuild.result}"
-                        echo "Current Build Current Result: ${currentBuild.currentResult}"
-                        echo "Current Build ID: ${currentBuild.id}"
-                        script{
-                            if ("${currentBuild.currentResult}" == "FAILURE"){
+                    post{
+                        always{
+                            echo "Current Build Result: ${currentBuild.result}"
+                            echo "Current Build Current Result: ${currentBuild.currentResult}"
+                            echo "Current Build ID: ${currentBuild.id}"
+                        }
+                        failure{
                                 publishHTML([
                                     allowMissing: false, 
                                     keepAll: true,
@@ -84,31 +84,39 @@
                                     reportName: 'Robot Framework Report - firefox', 
                                     reportTitles: 'Reports: firefox'
                                 ])
-                            }
                         }
                     }
-                }
-                /*stage ('Stage 2.3: Safari Browser Test Execution'){
                     steps {
                         sh '''#!/bin/bash
-                            pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:safari -v REMOTE_URL:$REMOTE_URL -i $TEST_SUITE -d Results .
+                            pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:firefox -v REMOTE_URL:$REMOTE_URL -i $TEST_SUITE -d Results .
                         '''
-                        echo "Current Build Result: ${currentBuild.result}"
-                        script{
-                            if ("${currentBuild.result}" == "FAILURE"){
+                    }
+                }
+                stage ('Stage 2.3: Safari Browser Test Execution'){
+                    post{
+                        always{
+                            echo "Current Build Result: ${currentBuild.result}"
+                            echo "Current Build Current Result: ${currentBuild.currentResult}"
+                            echo "Current Build ID: ${currentBuild.id}"
+                        }
+                        failure{
                                 publishHTML([
                                     allowMissing: false, 
                                     keepAll: true,
                                     alwaysLinkToLastBuild: true,
                                     reportDir: 'Results', 
                                     reportFiles: 'report.html', 
-                                    reportName: 'Robot Framework Report - firefox', 
+                                    reportName: 'Robot Framework Report - safari', 
                                     reportTitles: 'Reports: safari'
                                 ])
-                            }
                         }
                     }
-                }*/
+                    steps {
+                        sh '''#!/bin/bash
+                            pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:firefox -v REMOTE_URL:$REMOTE_URL -i $TEST_SUITE -d Results .
+                        '''
+                    }
+                }
             }
         }
     }
@@ -120,19 +128,6 @@
             echo "Current Build Result: ${currentBuild.result}"
             echo "Current Build Current Result: ${currentBuild.currentResult}"
             echo "Current Build ID: ${currentBuild.id}"
-            script{
-                if ("${currentBuild.result}" == "FAILURE"){
-                    publishHTML([
-                        allowMissing: false, 
-                        keepAll: true,
-                        alwaysLinkToLastBuild: true,
-                        reportDir: 'Results', 
-                        reportFiles: 'report.html', 
-                        reportName: 'Robot Framework Report : Last Build', 
-                        reportTitles: 'Reports: Last Build'
-                    ])
-                }
-            }
         }
 
     }
