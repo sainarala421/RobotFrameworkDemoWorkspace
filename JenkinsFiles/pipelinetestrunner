@@ -44,7 +44,7 @@
                         sh '''#!/bin/bash
                             pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:chrome -v REMOTE_URL:$REMOTE_URL -v HEADLESS_CHROME:$HEADLESS_CHROME -i $TEST_SUITE -d Results .
                         '''
-                        echo "${currentBuild.result}"
+                        echo "Current Build Result: ${currentBuild.result}"
                         script{
                             if ("${currentBuild.result}" == "FAILURE"){
                                 publishHTML([
@@ -55,7 +55,7 @@
                                     reportDir: 'Results', 
                                     reportFiles: 'report.html', 
                                     reportName: 'Robot Framework Report - chrome', 
-                                    reportTitles: 'Chrome'
+                                    reportTitles: 'Reports: chrome'
                                 ])
                             }
                         }
@@ -66,17 +66,21 @@
                         sh '''#!/bin/bash
                             pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:firefox -v REMOTE_URL:$REMOTE_URL -i $TEST_SUITE -d Results .
                         '''
-                        echo "${currentBuild.result}"
-                        publishHTML([
-                            allowMissing: false, 
-                            alwaysLinkToLastBuild: true, 
-                            keepAll: true,
-                            alwaysLinkToLastBuild: true,
-                            reportDir: 'Results', 
-                            reportFiles: 'report.html', 
-                            reportName: 'Robot Framework Report - firefox', 
-                            reportTitles: 'Firefox'
-                        ])
+                        echo "Current Build Result: ${currentBuild.result}"
+                        script{
+                            if ("${currentBuild.result}" == "FAILURE"){
+                                publishHTML([
+                                    allowMissing: false, 
+                                    alwaysLinkToLastBuild: true, 
+                                    keepAll: true,
+                                    alwaysLinkToLastBuild: true,
+                                    reportDir: 'Results', 
+                                    reportFiles: 'report.html', 
+                                    reportName: 'Robot Framework Report - firefox', 
+                                    reportTitles: 'Reports: firefox'
+                                ])
+                            }
+                        }
                     }
                 }
                 /*stage ('Stage 2.3: Safari Browser Test Execution'){
@@ -110,24 +114,7 @@
             /* mail to:"agundayfrancis@gmail.com",
                 subject:"STATUS FOR PROJECT: ${currentBuild.fullDisplayName}",
                 body: "RESULT: ${currentBuild.result}" */
-            script{
-                try{
-                    echo "Send notifications for result: ${currentBuild.result}"
-                    } catch(e) {
-                        echo "Send notifications for result: ${currentBuild.result}"
-                        publishHTML([
-                            allowMissing: false, 
-                            alwaysLinkToLastBuild: true, 
-                            keepAll: true,
-                            alwaysLinkToLastBuild: true,
-                            reportDir: 'Results', 
-                            reportFiles: 'report.html', 
-                            reportName: 'Robot Framework Report', 
-                            reportTitles: 'Report'
-                        ])
-                        throw e
-                    }
-            }
+            echo "Current Build Result: ${currentBuild.result}"
         }
     }
  }
