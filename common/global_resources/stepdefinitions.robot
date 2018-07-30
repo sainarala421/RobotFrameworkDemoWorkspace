@@ -30,25 +30,29 @@ Browser Cookie Should Not Be Empty
     Should Be True    ${t_isNotEmpty}
 
 User Clicks Element "${e_ELEMENT}"
-    [Documentation]    This keyword focus on an element before it clicks on it.
-    Run And Wait Until Keyword Succeeds    Element Should Be Visible    ${e_ELEMENT}
-    JQuery Focus Element "${e_ELEMENT}"
-    Click Element    ${e_ELEMENT}
+    [Documentation]    This keyword focuses on an element before it clicks on it.
+    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}
+    ...    JQuery Focus Element "${e_ELEMENT}"
+    Run And Wait Until Keyword Succeeds
+    ...    Click Element    ${e_ELEMENT}
 
 User Inputs Text "${e_TEXT}" On Field "${e_ELEMENT}"
-    JQuery Focus Element "${e_ELEMENT}"
+    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}
+    ...    JQuery Focus Element "${e_ELEMENT}"
     Run And Wait Until Keyword Succeeds
     ...    Input Text    ${${e_ELEMENT}}    ${e_TEXT}
 
 User Selects "${e_TEXT}" From List By Label In "${e_ELEMENT}" Field
-    JQuery Focus Element "${e_ELEMENT}"
+    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}
+    ...    JQuery Focus Element "${e_ELEMENT}"
     Run And Wait Until Keyword Succeeds
-    ...    Select From List By Label
-    ...    ${${e_ELEMENT}}    ${e_TEXT}
+    ...    Select From List By Label    ${${e_ELEMENT}}    ${e_TEXT}
 
 User Inputs Password "${e_TEXT}" On Field "${e_ELEMENT}"
-    JQuery Focus Element "${e_ELEMENT}"
-    Input Password    ${${e_ELEMENT}}    ${e_TEXT}
+    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}
+    ...    JQuery Focus Element "${e_ELEMENT}"
+    Run And Wait Until Keyword Succeeds
+    ...    Input Password    ${${e_ELEMENT}}    ${e_TEXT}
 
 User Inputs Text On Focused Field
     [Documentation]  This user Keyword will execute when field are having problems on inputting.

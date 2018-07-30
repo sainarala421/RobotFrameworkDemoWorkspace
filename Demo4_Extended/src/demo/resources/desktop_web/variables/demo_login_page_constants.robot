@@ -1,5 +1,5 @@
 *** Variables ***
-${SIGNIN_BUTTON}                  jquery=a.login
+${SIGNIN_BUTTON}                  css=a.login
 ${EMAIL_TEXTFIELD}                id=email
 ${PASSWORD_TEXTFIELD}             id=passwd
 ${SUBMIT_LOGIN_BUTTON}            id=SubmitLogin

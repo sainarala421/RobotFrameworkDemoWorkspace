@@ -7,7 +7,7 @@ setup(
         'Collection of Robot Framework Libraries '
     ),
     install_requires=[
-        'selenium >= 3.10.0, <= 3.13.0',
+        'selenium == 3.9.0',
         'urllib3',
         'python-dateutil >= 2.4.2, <= 2.4.3',
         'requests',
