@@ -48,6 +48,8 @@
                             pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:chrome -v REMOTE_URL:$REMOTE_URL -v HEADLESS_CHROME:$HEADLESS_CHROME -i $TEST_SUITE -d Results .
                         '''
                         echo "Current Build Result: ${currentBuild.result}"
+                        echo "Current Build Current Result: ${currentBuild.currentResult}"
+                        echo "Current Build ID: ${currentBuild.id}"
                         script{
                             if ("${currentBuild.result}" == "FAILURE"){
                                 publishHTML([
@@ -69,6 +71,8 @@
                             pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:firefox -v REMOTE_URL:$REMOTE_URL -i $TEST_SUITE -d Results .
                         '''
                         echo "Current Build Result: ${currentBuild.result}"
+                        echo "Current Build Current Result: ${currentBuild.currentResult}"
+                        echo "Current Build ID: ${currentBuild.id}"
                         script{
                             if ("${currentBuild.result}" == "FAILURE"){
                                 publishHTML([
@@ -114,6 +118,8 @@
                 subject:"STATUS FOR PROJECT: ${currentBuild.fullDisplayName}",
                 body: "RESULT: ${currentBuild.result}" */
             echo "Current Build Result: ${currentBuild.result}"
+            echo "Current Build Current Result: ${currentBuild.currentResult}"
+            echo "Current Build ID: ${currentBuild.id}"
             script{
                 if ("${currentBuild.result}" == "FAILURE"){
                     publishHTML([
