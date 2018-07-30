@@ -10,7 +10,7 @@
 
  pipeline {
     agent {
-        // Node / agent for test execution
+        // Node or agent for test execution.
         label 'master'
     }
     parameters {
@@ -44,16 +44,21 @@
                         sh '''#!/bin/bash
                             pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:chrome -v REMOTE_URL:$REMOTE_URL -v HEADLESS_CHROME:$HEADLESS_CHROME -i $TEST_SUITE -d Results .
                         '''
-                        publishHTML([
-                            allowMissing: false, 
-                            alwaysLinkToLastBuild: true, 
-                            keepAll: true,
-                            alwaysLinkToLastBuild: true,
-                            reportDir: 'Results', 
-                            reportFiles: 'report.html', 
-                            reportName: 'Robot Framework Report - chrome', 
-                            reportTitles: ''
-                        ])
+                        echo "${currentBuild.result}"
+                        script{
+                            if ("${currentBuild.result}" == "FAILURE"){
+                                publishHTML([
+                                    allowMissing: false, 
+                                    alwaysLinkToLastBuild: true, 
+                                    keepAll: true,
+                                    alwaysLinkToLastBuild: true,
+                                    reportDir: 'Results', 
+                                    reportFiles: 'report.html', 
+                                    reportName: 'Robot Framework Report - chrome', 
+                                    reportTitles: 'Chrome'
+                                ])
+                            }
+                        }
                     }
                 }
                 stage ('Stage 2.2: Firefox Browser Test Execution'){
@@ -61,6 +66,7 @@
                         sh '''#!/bin/bash
                             pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:firefox -v REMOTE_URL:$REMOTE_URL -i $TEST_SUITE -d Results .
                         '''
+                        echo "${currentBuild.result}"
                         publishHTML([
                             allowMissing: false, 
                             alwaysLinkToLastBuild: true, 
@@ -69,7 +75,7 @@
                             reportDir: 'Results', 
                             reportFiles: 'report.html', 
                             reportName: 'Robot Framework Report - firefox', 
-                            reportTitles: ''
+                            reportTitles: 'Firefox'
                         ])
                     }
                 }
@@ -107,19 +113,18 @@
             script{
                 try{
                     echo "Send notifications for result: ${currentBuild.result}"
-
                     } catch(e) {
                         echo "Send notifications for result: ${currentBuild.result}"
-                            publishHTML([
-                                allowMissing: false, 
-                                alwaysLinkToLastBuild: true, 
-                                keepAll: true,
-                                alwaysLinkToLastBuild: true,
-                                reportDir: 'Results', 
-                                reportFiles: 'report.html', 
-                                reportName: 'Robot Framework Report - chrome', 
-                                reportTitles: ''
-                            ])
+                        publishHTML([
+                            allowMissing: false, 
+                            alwaysLinkToLastBuild: true, 
+                            keepAll: true,
+                            alwaysLinkToLastBuild: true,
+                            reportDir: 'Results', 
+                            reportFiles: 'report.html', 
+                            reportName: 'Robot Framework Report', 
+                            reportTitles: 'Report'
+                        ])
                         throw e
                     }
             }
