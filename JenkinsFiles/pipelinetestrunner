@@ -51,7 +51,7 @@
                         echo "Current Build Current Result: ${currentBuild.currentResult}"
                         echo "Current Build ID: ${currentBuild.id}"
                         script{
-                            if ("${currentBuild.result}" == "FAILURE"){
+                            if ("${currentBuild.currentResult}" == "FAILURE"){
                                 publishHTML([
                                     allowMissing: false, 
                                     keepAll: true,
@@ -74,7 +74,7 @@
                         echo "Current Build Current Result: ${currentBuild.currentResult}"
                         echo "Current Build ID: ${currentBuild.id}"
                         script{
-                            if ("${currentBuild.result}" == "FAILURE"){
+                            if ("${currentBuild.currentResult}" == "FAILURE"){
                                 publishHTML([
                                     allowMissing: false, 
                                     keepAll: true,
