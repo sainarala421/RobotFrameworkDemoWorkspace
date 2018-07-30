@@ -52,7 +52,7 @@
                                     echo "Send notifications for result: ${currentBuild.result}"
                                     publishHTML([
                                         $class: 'RobotPublisher',
-                                        outputPath: '.',
+                                        outputPath: 'Results',
                                         passThreshold: 0,
                                         unstableThreshold: 0,
                                         otherFiles: "**/*.png"
@@ -75,7 +75,7 @@
                                     echo "Send notifications for result: ${currentBuild.result}"
                                     publishHTML([
                                         $class: 'RobotPublisher',
-                                        outputPath: '.',
+                                        outputPath: 'Results',
                                         passThreshold: 0,
                                         unstableThreshold: 0,
                                         otherFiles: "**/*.png"
@@ -124,7 +124,7 @@
                         echo "Send notifications for result: ${currentBuild.result}"
                         publishHTML([
                             $class: 'RobotPublisher',
-                            outputPath: '.',
+                            outputPath: 'Results',
                             passThreshold: 0,
                             unstableThreshold: 0,
                             otherFiles: "**/*.png"
