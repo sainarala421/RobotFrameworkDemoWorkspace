@@ -44,25 +44,16 @@
                         sh '''#!/bin/bash
                             pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:chrome -v REMOTE_URL:$REMOTE_URL -v HEADLESS_CHROME:$HEADLESS_CHROME -i $TEST_SUITE -d Results .
                         '''
-                        script{
-                            try{
-                                echo "Send notifications for result: ${currentBuild.result}"
-
-                                } catch(e) {
-                                    echo "Send notifications for result: ${currentBuild.result}"
-                                    publishHTML([
-                                        allowMissing: false, 
-                                        alwaysLinkToLastBuild: false, 
-                                        keepAll: true,
-                                        alwaysLinkToLastBuild: true,
-                                        reportDir: 'Results', 
-                                        reportFiles: 'report.html', 
-                                        reportName: 'Robot Framework Report - chrome', 
-                                        reportTitles: ''
-                                    ])
-                                    throw e
-                                }
-                        }
+                        publishHTML([
+                            allowMissing: false, 
+                            alwaysLinkToLastBuild: false, 
+                            keepAll: true,
+                            alwaysLinkToLastBuild: true,
+                            reportDir: 'Results', 
+                            reportFiles: 'report.html', 
+                            reportName: 'Robot Framework Report - chrome', 
+                            reportTitles: ''
+                        ])
                     }
                 }
                 stage ('Stage 2.2: Firefox Browser Test Execution'){
@@ -70,22 +61,16 @@
                         sh '''#!/bin/bash
                             pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:firefox -v REMOTE_URL:$REMOTE_URL -i $TEST_SUITE -d Results .
                         '''
-                        script{
-                            try{
-                                echo "Send notifications for result: ${currentBuild.result}"
-
-                                } catch(e) {
-                                    echo "Send notifications for result: ${currentBuild.result}"
-                                    publishHTML([
-                                        $class: 'RobotPublisher',
-                                        outputPath: 'Results',
-                                        passThreshold: 0,
-                                        unstableThreshold: 0,
-                                        otherFiles: "**/*.png"
-                                    ])
-                                    throw e
-                                }
-                        }
+                        publishHTML([
+                            allowMissing: false, 
+                            alwaysLinkToLastBuild: false, 
+                            keepAll: true,
+                            alwaysLinkToLastBuild: true,
+                            reportDir: 'Results', 
+                            reportFiles: 'report.html', 
+                            reportName: 'Robot Framework Report - firefox', 
+                            reportTitles: ''
+                        ])
                     }
                 }
                 /*stage ('Stage 2.3: Safari Browser Test Execution'){
@@ -119,16 +104,6 @@
             /* mail to:"agundayfrancis@gmail.com",
                 subject:"STATUS FOR PROJECT: ${currentBuild.fullDisplayName}",
                 body: "RESULT: ${currentBuild.result}" */
-            publishHTML([
-                allowMissing: false, 
-                alwaysLinkToLastBuild: false, 
-                keepAll: true,
-                alwaysLinkToLastBuild: true,
-                reportDir: 'Results', 
-                reportFiles: 'report.html', 
-                reportName: 'Robot Framework Report', 
-                reportTitles: ''
-            ])
             script{
                 try{
                     echo "Send notifications for result: ${currentBuild.result}"
