@@ -50,7 +50,7 @@
 
                                 } catch(e) {
                                     echo "Send notifications for result: ${currentBuild.result}"
-                                    step([
+                                    publishHTML([
                                         $class: 'RobotPublisher',
                                         outputPath: '.',
                                         passThreshold: 0,
@@ -73,7 +73,7 @@
 
                                 } catch(e) {
                                     echo "Send notifications for result: ${currentBuild.result}"
-                                    step([
+                                    publishHTML([
                                         $class: 'RobotPublisher',
                                         outputPath: '.',
                                         passThreshold: 0,
@@ -122,7 +122,7 @@
 
                     } catch(e) {
                         echo "Send notifications for result: ${currentBuild.result}"
-                        step([
+                        publishHTML([
                             $class: 'RobotPublisher',
                             outputPath: '.',
                             passThreshold: 0,
