@@ -119,19 +119,32 @@
             /* mail to:"agundayfrancis@gmail.com",
                 subject:"STATUS FOR PROJECT: ${currentBuild.fullDisplayName}",
                 body: "RESULT: ${currentBuild.result}" */
+            publishHTML([
+                allowMissing: false, 
+                alwaysLinkToLastBuild: false, 
+                keepAll: true,
+                alwaysLinkToLastBuild: true,
+                reportDir: 'Results', 
+                reportFiles: 'report.html', 
+                reportName: 'Robot Framework Report', 
+                reportTitles: ''
+            ])
             script{
                 try{
                     echo "Send notifications for result: ${currentBuild.result}"
 
                     } catch(e) {
                         echo "Send notifications for result: ${currentBuild.result}"
-                        publishHTML([
-                            $class: 'RobotPublisher',
-                            outputPath: 'Results',
-                            passThreshold: 0,
-                            unstableThreshold: 0,
-                            otherFiles: "**/*.png"
-                        ])
+                            publishHTML([
+                                allowMissing: false, 
+                                alwaysLinkToLastBuild: false, 
+                                keepAll: true,
+                                alwaysLinkToLastBuild: true,
+                                reportDir: 'Results', 
+                                reportFiles: 'report.html', 
+                                reportName: 'Robot Framework Report - chrome', 
+                                reportTitles: ''
+                            ])
                         throw e
                     }
             }
