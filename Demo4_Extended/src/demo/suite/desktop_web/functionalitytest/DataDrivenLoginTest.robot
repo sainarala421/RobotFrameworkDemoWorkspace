@@ -1,8 +1,11 @@
 *** Settings ***
-Documentation        [DEMO] This suite should test the login functionality of the automation practice website
+Documentation        [DEMO] This test suite should test the login functionality of the automation practice website
 Default Tags         DataDrivenLoginTest    Demo    FUNCTIONALITY    HIGH
 Force Tags           REGRESSION
-Suite Teardown       Get Environment Details And Close All Browsers
+Test Setup           Set Test Documentation     Test Case: ${TEST NAME}
+Test Teardown        Close Browser
+Suite Teardown       Run Keywords    Log Environment Details In Suite Documentation
+...                  AND    Close All Browsers
 Resource             ${GLOBAL_RESOURCES_FILE_PATH}libraries.robot
 Resource             ${DEMO4_VARIABLE_DIR}demo_login_page_constants.robot
 Resource             ${DEMO4_PAGERESOURCE_DIR}demo_login_page_templates.robot

@@ -15,6 +15,8 @@ Open Browser To "${BASE_URL}"
     ...    desired_capabilities=${DESIRED_CAPABILITIES}
     Set Selenium Speed    ${SELENIUM_SPEED}
 
+    Run Keyword And Ignore Error    Get Test Environment Details
+
 Open Browser Instance "${e_NEW_ALIAS}" To "${BASE_URL}"
     Set Suite Variable    ${ALIAS}    ${e_NEW_ALIAS}
     Open Browser To "${BASE_URL}"
@@ -43,14 +45,7 @@ Set Headless Chrome
     Log    ${CHROME_OPTIONS}
 
 #=================================================#
-#                    AFTER                        #
-#=================================================#
-Get Environment Details And Close All Browsers
-    Get Test Environment Details
-    Close All Browsers
-
-#=================================================#
-#                         LOGGING                 #
+#                   LOGGING                       #
 #=================================================#
 Log Console Errors
     [Documentation]    Use this keyword to run on keyword failure.
@@ -69,10 +64,20 @@ Get Test Environment Details
     [Documentation]    This test is for logging the test environment details.
     ...    Note: this is currently for chrome browser only
     ${t_extendedS2Library} =    Get Library Instance    ExtendedSelenium2Library
-
-    # Append test environment details to suite documentation.
-    Set Suite Documentation    * * * * * * TEST ENVIRONMENT DETAILS    append = True
-    Set Suite Documentation    [ Browser Alias: ${ALIAS} ]    append = True
+    ${t_envDictionary}=    Create Dictionary
     ${t_capabilities} =    Set Variable    ${t_extendedS2Library._current_browser().capabilities}
     :FOR    ${key}    IN    @{t_capabilities.keys()}
-    \    Set Suite Documentation    [ ${key} : ${t_capabilities["${key}"]} ]    append = True
+    \    Set To Dictionary    ${t_envDictionary}    ${key}=${t_capabilities["${key}"]}
+    Set Suite Variable    ${ENVIRONMENT_DETAILS}    ${t_envDictionary}
+
+Log Environment Details In Suite Documentation
+    ${envVarDictionaryExists} =    Run Keyword And Return Status
+    ...    Variable Should Exist    @{ENVIRONMENT_DETAILS}
+    ${t_emptyDictionary}=    Create Dictionary    ${EMPTY}=${EMPTY}
+    ${t_envDictionary}=    Set Variable If    ${envVarDictionaryExists}
+    ...    ${ENVIRONMENT_DETAILS}    ${t_emptyDictionary}
+    # Append test environment details to suite documentation.
+    Set Suite Documentation    * * * * * * TEST ENVIRONMENT DETAILS * * * * * *    append = True
+    Set Suite Documentation    Browser Alias: ${ALIAS};    append = True
+    :FOR    ${key}    IN    @{t_envDictionary}
+    \    Set Suite Documentation    ${key} : ${t_envDictionary["${key}"]};    append = True

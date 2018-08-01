@@ -12,5 +12,11 @@ Resource          capabilities.robot
 Resource          constants.robot
 Resource          filepaths.robot
 Resource          libraries.robot
-Resource          setupbrowser.robot
-Resource          stepdefinitions.robot
+Resource          browsersetup.robot
+Resource          stepdefinitions${/}assertions.robot
+Resource          stepdefinitions${/}browsermanagement.robot
+Resource          stepdefinitions${/}datetime.robot
+Resource          stepdefinitions${/}element.robot
+Resource          stepdefinitions${/}formelement.robot
+Resource          stepdefinitions${/}selectelement.robot
+Resource          stepdefinitions${/}jquerytool.robot

@@ -1,6 +1,5 @@
 (
-	document.onload =
-	function(){
+	document.onload = function(){
 		var script = 
 			document.createElement('script'); 
 			script.setAttribute("type", "text/javascript"); 

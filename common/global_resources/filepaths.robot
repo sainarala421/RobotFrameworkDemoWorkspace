@@ -15,3 +15,5 @@ ${DEMO4_VARIABLE_DIR}             ${CURDIR}${/}..${/}..${/}Demo4_Extended${/}src
 ${COMMON_DIR}                     ${CURDIR}${/}..${/}
 #firefox filepath
 ${FIREFOX_PROFILE_DIR}            ${CURDIR}${/}firefoxprofile${/}
+#test data path
+${TEST_DATA_DIR}                  ${CURDIR}${/}..${/}..${/}common${/}test_data${/}
