@@ -8,8 +8,7 @@ Test Teardown        Close Browser
 Suite Teardown       Run Keywords    Log Environment Details In Suite Documentation
 ...                  AND    Close All Browsers
 Resource             ${GLOBAL_RESOURCES_FILE_PATH}libraries.robot
-Resource             ${DEMO4_VARIABLE_DIR}demo_login_page_constants.robot
-Resource             ${DEMO4_PAGERESOURCE_DIR}demo_login_page_templates.robot
+Resource             ${DEMO4_PAGERESOURCE_DIR}demo_login_page_keywords.robot
 Test Template        User Login In Using "${e_CREDENTIAL_TYPE}" Username "${e_USERNAME}" And Password "${e_PASSWORD}"
 
 *** Variables ***

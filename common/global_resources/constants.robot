@@ -14,7 +14,7 @@ ${HEADLESS_CHROME}        False
 #=================================================#
 #                 URL EXTENSTIONS                 #
 #=================================================#
-${BASE_URL}                             http://automationpractice.com
+${BASE_URL}                             http://automationpractice.com/index.php
 ${AUTOMATION_PRACTICE_HOME_URL}         ${BASE_URL}
 
 #=================================================#

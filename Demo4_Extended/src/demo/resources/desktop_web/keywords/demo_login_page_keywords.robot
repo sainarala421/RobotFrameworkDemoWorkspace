@@ -1,3 +1,7 @@
+*** Settings ***
+Documentation     Resource file for login page.
+Resource          ${DEMO4_VARIABLE_DIR}demo_login_page_constants.robot
+
 *** Keywords ***
 #==================================#
 #          TEST TEMPLATES          #

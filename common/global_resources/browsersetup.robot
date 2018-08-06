@@ -6,43 +6,51 @@ Open Browser To "${BASE_URL}"
     ${REMOTE_URL}=     Set Variable If     '${REMOTE_URL}' == 'False'
     ...    ${EMPTY}    ${REMOTE_URL}
 
-    Run Keyword If    ${HEADLESS_CHROME}
-    ...    Run Keywords    Create Chrome Webdriver
+    Run Keyword If    ${HEADLESS_CHROME} and '${BROWSER.lower()}' == 'chrome'
+    ...    Run Keywords    Create Headless Chrome Webdriver
     ...    AND    Go To    ${BASE_URL}
     ...    ELSE    Run Keywords
-    ...    Setup Desired Capabilities
+    ...    Comment    Keyword for non-headless browsers.
+    ...    AND    Setup Desired Capabilities
     ...    AND    Open Browser    ${BASE_URL}    browser=${BROWSER}    alias=${ALIAS}    remote_url=${REMOTE_URL}
     ...    desired_capabilities=${DESIRED_CAPABILITIES}
     Set Selenium Speed    ${SELENIUM_SPEED}
 
+    Comment    Record the test environment details.
     Run Keyword And Ignore Error    Get Test Environment Details
 
 Open Browser Instance "${e_NEW_ALIAS}" To "${BASE_URL}"
     Set Suite Variable    ${ALIAS}    ${e_NEW_ALIAS}
     Open Browser To "${BASE_URL}"
 
-Create Chrome Webdriver
-    ${REMOTE_URL}=     Set Variable If     '${REMOTE_URL}' == 'False'
-    ...    ${EMPTY}    ${REMOTE_URL}
-    Set Headless Chrome
-    Run Keyword If    '${REMOTE_URL}' == ''
-    ...    Create Webdriver    Chrome   alias=${ALIAS}    chrome_options=${CHROME_OPTIONS}
-    ...    ELSE
-    ...    Create Webdriver    Remote    command_executor=${REMOTE_URL}    alias=${ALIAS}
-    ...    desired_capabilities=${CHROME_OPTIONS}
+Create Headless Chrome Webdriver
+    [Documentation]    Create the chrome webdriver for headless chrome.
+    Set Headless Chrome Options
+    Comment    Set chrome options value.
+    ${t_chromeOptions}=     Run Keyword If    '${REMOTE_URL}' == 'False'
+    ...    Call Method     ${s_CHROME_OPTIONS}    to_capabilities
+    ...    ELSE    Set Variable    ${s_CHROME_OPTIONS}
 
-Set Headless Chrome
+    Comment    Set remoteURL value.
+    ${t_remoteURL}=     Set Variable If     '${REMOTE_URL}' == 'False'
+    ...    ${EMPTY}    ${REMOTE_URL}
+
+    Run Keyword If    '${t_remoteURL}' == '${EMPTY}'    Run Keywords
+    ...    Comment    Non-remote headless test execution.
+    ...    AND    Create Webdriver    Chrome   alias=${ALIAS}    chrome_options=${s_CHROME_OPTIONS}
+    ...    ELSE    Run Keywords
+    ...    Comment    Remote headless test execution.
+    ...    AND    Create Webdriver    Remote    command_executor=${t_remoteURL}    alias=${ALIAS}
+    ...    desired_capabilities=${s_CHROME_OPTIONS}
+
+Set Headless Chrome Options
+    [Documentation]    Add chrome arguments for headless and no sandbox.
     @{t_chromeArguments}=    Create List    --disable-infobars    --headless    --disable-gpu    --no-sandbox
     ${t_chromeOptions}=    Evaluate    sys.modules['selenium.webdriver'].ChromeOptions()    sys, selenium.webdriver
     : FOR    ${t_chromeOption}    IN    @{t_chromeArguments}
     \    Call Method    ${t_chromeOptions}    add_argument    ${t_chromeOption}
-
-    ${t_chromeOptions}=     Run Keyword If    '${REMOTE_URL}' == 'False'
-    ...    Call Method     ${t_chromeOptions}    to_capabilities
-    ...    ELSE    Set Variable    ${t_chromeOptions}
-
-    Set Suite Variable    ${CHROME_OPTIONS}    ${t_chromeOptions}
-    Log    ${CHROME_OPTIONS}
+    Set Suite Variable    ${s_CHROME_OPTIONS}    ${t_chromeOptions}
+    Log    ${s_CHROME_OPTIONS}
 
 #=================================================#
 #                   LOGGING                       #

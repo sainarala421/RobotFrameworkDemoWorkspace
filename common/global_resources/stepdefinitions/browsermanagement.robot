@@ -7,15 +7,28 @@ User Is In "${e_PAGE_NAME}" Page
     [Documentation]    This keyword asserts that the url value of the page is correct, otherwise, Go To keyword is executed.
     User Has Navigated To "${e_PAGE_NAME}" Page
 
-User Goes To "${e_PAGE_NAME}" Page
+User Navigates To "${e_PAGE_NAME}" Page
     [Documentation]    Keyword that navigates to a certain page. Accepts a url as an argument.
     User Has Navigated To "${e_PAGE_NAME}" Page
 
 User Has Navigated To "${e_PAGE_NAME}" Page
     [Documentation]    Keyword that navigates to a certain page. Accepts a url as an argument.
+    Comment    Check if URI is a base url or a url extenstion
     ${t_isURLExtension} =    Run Keyword And Return Status
     ...    Variable Should Exist    ${${e_PAGE_NAME}_URL_EXT}
-    Run Keyword If    ${t_isURLExtension}    Verify Hostname Contains Http    ${${e_PAGE_NAME}_URL_EXT}
+    ${t_isURL} =    Run Keyword And Return Status
+    ...    Variable Should Exist    ${${e_PAGE_NAME}_URL}
+    ${t_urlFinal}=    Set Variable If    ${t_isURLExtension}
+    ...    ${${e_PAGE_NAME}_URL_EXT}    ${${e_PAGE_NAME}_URL}
+
+    Comment    Check if the url is the exact URI
+    ${status}    ${value}=    Run Keyword And Ignore Error
+    ...    Run Keyword If    ${t_isURLExtension}
+    ...    Location Should Contain    ${t_urlFinal}
+    ...    ELSE    Location Should Be    ${t_urlFinal}
+
+    Comment    Go to the specified URI
+    Run Keyword Unless    '${status}' == 'PASS'    Verify Hostname Contains Http    ${t_urlFinal}
     User Should Be Redirected To "${e_PAGE_NAME}" Page
 
 Get Current Page's Url
