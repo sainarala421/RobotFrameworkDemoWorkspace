@@ -1,6 +1,6 @@
 *** Keywords ***
 User Adds "${e_PRODUCT_QUANTITY}" "${e_PRODUCT_TYPE}" Products To Cart
-    User Clicks "${e_PRODUCT_TYPE}"
+    User Clicks "${e_PRODUCT_TYPE} Menu"
 
     ${t_productCount}=    Get Matching Locator "${FEATURED_PRODUCTS}" Count
     : FOR    ${INDEX}    IN RANGE    0    ${e_PRODUCT_QUANTITY}

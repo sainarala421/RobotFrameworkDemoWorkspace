@@ -18,5 +18,5 @@ ${productCount}    10
 *** Test Cases ***
 Guest User Product Cart
     Given User Is In "Automation Practice Home" Page
-    When User Adds "${productCount}" "Home Page Popular Menu" Products To Cart
+    When User Adds "${productCount}" "Home Page Popular" Products To Cart
     Then "Shopping Cart Quantity" Should Contain The Value "${productCount}"
