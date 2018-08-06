@@ -28,11 +28,13 @@ Wait Until Element "${e_ELEMENT}" Is "${e_VISIBILITY}"
     ...    ELSE    Run And Wait Until Keyword Succeeds    Element Should Not Be Visible    ${e_ELEMENT}
 
 List Of Elements "${e_ELEMENTS_LIST}" Should Be "${e_VISIBILITY}"
-    [Documentation]    This keyword accepts pre-created list of elements or a number of elements separated by a comma as an argument and
+    [Documentation]    This keyword accepts pre-created list of elements or a number of elements separated
+    ...    by a comma as an argument and
     ...    iterates to check if the element is visible
     ...    Argument Example:
     ...    pre-created list of elements: @{t_listOfElements}
-    ...    elements separated by comma: ${ELEMENT_1},${ELEMENT_2},${ELEMENT_3},${ELEMENT_4},${ELEMENT_5},${ELEMENT_6},${ELEMENT_7}
+    ...    elements separated by comma: ${ELEMENT_1},${ELEMENT_2},${ELEMENT_3},${ELEMENT_4},${ELEMENT_5},
+    ...    ${ELEMENT_6},${ELEMENT_7}
     ${t_isCount} =    Get Length    ${e_ELEMENTS_LIST}
     @{t_createdListOfElements} =    Run Keyword If    ${t_isCount} == 1    Split String    @{e_ELEMENTS_LIST}    ,
     @{t_listOfElements}=    Run Keyword If    ${t_isCount} == 1    Set Variable    @{t_createdListOfElements}

@@ -5,29 +5,18 @@
 # Page redirection keywords
 User Is In "${e_PAGE_NAME}" Page
     [Documentation]    This keyword asserts that the url value of the page is correct, otherwise, Go To keyword is executed.
-    ${t_extURL}    ${t_isPageUrl}=    User Is Forwarded To "${e_PAGE_NAME}" Page
-    Run Keyword Unless    ${t_isPageUrl}    Go To    ${${g_BASE_URL}_BASE_URL}${t_extURL}
-    Log Location
-
-User Is Forwarded To "${e_PAGE_NAME}" Page
-    [Documentation]    This keyword asserts that the url value of the target page is correct.
-    ${t_extURL}=    Set Variable If    '${e_PAGE_NAME}' == 'Lifehacks Home' or '${e_PAGE_NAME}' == 'Lifehacks'
-    ...    ${EMPTY}    ${${e_PAGE_NAME}_URL_EXT}
-    ${r_isPageUrl} =    Run Keyword And Return Status    Location Should Contain    ${t_extURL}
-    [Return]    ${t_extURL}    ${r_isPageUrl}
-    Log Location
+    User Has Navigated To "${e_PAGE_NAME}" Page
 
 User Goes To "${e_PAGE_NAME}" Page
     [Documentation]    Keyword that navigates to a certain page. Accepts a url as an argument.
-    ${url}=    Run Keyword And Return Status    Should Contain    ${${e_PAGE_NAME}_URL_EXT}    ${${g_BASE_URL}_BASE_URL}
-    Run Keyword Unless    ${url}    Verify Hostname Contains Http    ${${e_PAGE_NAME}_URL_EXT}
-    Log Location
+    User Has Navigated To "${e_PAGE_NAME}" Page
 
 User Has Navigated To "${e_PAGE_NAME}" Page
     [Documentation]    Keyword that navigates to a certain page. Accepts a url as an argument.
-    ${url}=    Run Keyword And Return Status    Should Contain    ${${e_PAGE_NAME}_URL_EXT}    ${${g_BASE_URL}_BASE_URL}
-    Run Keyword Unless    ${url}    Verify Hostname Contains Http    ${${e_PAGE_NAME}_URL_EXT}
-    Log Location
+    ${t_isURLExtension} =    Run Keyword And Return Status
+    ...    Variable Should Exist    ${${e_PAGE_NAME}_URL_EXT}
+    Run Keyword If    ${t_isURLExtension}    Verify Hostname Contains Http    ${${e_PAGE_NAME}_URL_EXT}
+    User Should Be Redirected To "${e_PAGE_NAME}" Page
 
 Get Current Page's Url
     [Documentation]    This keyword gets the current page's url after switching of browsers

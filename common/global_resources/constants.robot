@@ -15,12 +15,12 @@ ${HEADLESS_CHROME}        False
 #                 URL EXTENSTIONS                 #
 #=================================================#
 ${BASE_URL}                             http://automationpractice.com
-${AUTOMATION_PRACTICE_HOME_PAGE_URL}    ${BASE_URL}
+${AUTOMATION_PRACTICE_HOME_URL}         ${BASE_URL}
 
 #=================================================#
 #                 GLOBAL CONSTANTS                #
 #=================================================#
-${HEADLESS}                             ${FALSE}
+${HEADLESS}             ${FALSE}
 
 #=================================================#
 #                 DESIRED_CAPABILITIES            #

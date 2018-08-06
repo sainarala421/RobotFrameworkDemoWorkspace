@@ -2,7 +2,8 @@
 Documentation        [DEMO] This test suite should test the login functionality of the automation practice website
 Default Tags         LoginTest    Demo    FUNCTIONALITY    HIGH
 Force Tags           REGRESSION
-Test Setup           Set Test Documentation    Test Case: ${TEST NAME}
+Test Setup           Run Keywords    Open Browser To "${BASE_URL}"
+...                  AND    Set Test Documentation    Test Case: ${TEST NAME}
 Test Teardown        Close Browser
 Suite Teardown       Run Keywords    Log Environment Details In Suite Documentation
 ...                  AND    Close All Browsers
@@ -16,7 +17,7 @@ ${invalidpassword}      Test@123Invalid
 
 *** Test Cases ***
 Valid User Login
-    Given Open Browser To "${BASE_URL}"
+    Given User Is In "Automation Practice Home" Page
     When User Clicks "Sign In Button"
     And User Inputs Text "${username}" On Field "Email Text Field"
     And User Inputs Password "${validpassword}" On Field "Password Text Field"
@@ -24,7 +25,7 @@ Valid User Login
     Then User Should Be Redirected To "User Dashboard" Page
 
 Invalid User Login
-    Given Open Browser To "${BASE_URL}"
+    Given User Is In "Automation Practice Home" Page
     When User Clicks "Sign In Button"
     And User Inputs Text "${username}" On Field "Email Text Field"
     And User Inputs Password "${invalidpassword}" On Field "Password Text Field"

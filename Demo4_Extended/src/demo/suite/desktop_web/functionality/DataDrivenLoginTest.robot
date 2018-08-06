@@ -2,7 +2,8 @@
 Documentation        [DEMO] This test suite should test the login functionality of the automation practice website
 Default Tags         DataDrivenLoginTest    Demo    FUNCTIONALITY    HIGH
 Force Tags           REGRESSION
-Test Setup           Set Test Documentation     Test Case: ${TEST NAME}
+Test Setup           Run Keywords    Open Browser To "${BASE_URL}"
+...                  AND    Set Test Documentation    Test Case: ${TEST NAME}
 Test Teardown        Close Browser
 Suite Teardown       Run Keywords    Log Environment Details In Suite Documentation
 ...                  AND    Close All Browsers

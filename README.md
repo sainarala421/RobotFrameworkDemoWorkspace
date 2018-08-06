@@ -6,7 +6,7 @@ the covering the following:
 
   - Basic - bare bones robot framework script
   - Refactored - separating the variables, keywords into different .robot files
-  - Optimised - creating sub directories for variables, custom libraries and creating argument file to contain the variables
+  - Composite - creating sub directories for variables, custom libraries and creating argument file to contain the variables
   - Extended - extending robot framework for jenkins, report portal, docker-selenium
 
 Directory Structure
