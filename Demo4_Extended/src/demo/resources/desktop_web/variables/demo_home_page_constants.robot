@@ -27,9 +27,10 @@ ${HOME_PAGE_SLIDER}                       id=homepage-slider
 ${HOME_PAGE_CONTENT}                      id=htmlcontent_top
 @{HOME_PAGE_SLIDER_CORE_ELEMENTS_LIST}    ${HOME_PAGE_SLIDER}    ${HOME_PAGE_CONTENT}
 
-${HOME_PAGE_TABS}                         css=#home-page-tabs
+${HOME_PAGE_TABS}                         jquery=#home-page-tabs
 ${HOME_PAGE_POPULAR_MENU}                 ${HOME_PAGE_TABS} .homefeatured
 ${HOME_PAGE_BEST_SELLERS_MENU}            ${HOME_PAGE_TABS} .blockbestsellers
+${FEATURED_PRODUCTS}                      jquery=#homefeatured .product-container
 @{HOME_PAGE_SLIDER_CORE_ELEMENTS_LIST}    ${HOME_PAGE_POPULAR_MENU}    ${HOME_PAGE_BEST_SELLERS_MENU}
 
 ${FEATURED_PRODUCTS_LIST}                 id=homefeatured

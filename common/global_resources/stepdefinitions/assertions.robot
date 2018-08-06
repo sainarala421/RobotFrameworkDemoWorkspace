@@ -42,6 +42,24 @@ List Of Elements "${e_ELEMENTS_LIST}" Should Be "${e_VISIBILITY}"
     : FOR    ${element}    IN    @{t_listOfElements}
     \    Wait Until Element "${element}" Is "${e_VISIBILITY}"
 
+"${e_ELEMENT}" Should Be Checked
+    Run And Wait Until Keyword Succeeds
+    ...    Checkbox Should Be Selected    ${${e_ELEMENT}}
+
+"${e_ELEMENT}" Should Contain "${e_ASSERTED_ELEMENT}"
+    : FOR    ${r_index}    IN RANGE    10
+    \    ${t_assertedElementIsVisible} =    Run Keyword And Return Status
+    ...    Wait Until Keyword Succeeds    10s    2s
+    ...    Element Should Contain    ${${e_ELEMENT}}    ${${e_ASSERTED_ELEMENT}}
+    \    Run Keyword Unless    ${t_assertedElementIsVisible}
+    ...    Reload Page
+    \    Exit For Loop If    ${t_assertedElementIsVisible}
+    Should Be True   ${t_assertedElementIsVisible}    msg=Asserted Element ${t_assertedElementIsVisible} Is Not Visible
+
+"${e_ELEMENT}" Should Contain The Value "${e_ELEMENT_TEXT}"
+    Run And Wait Until Keyword Succeeds
+    ...    Element Should Contain    ${${e_ELEMENT}}    ${e_ELEMENT_TEXT}
+
 #==========================================================#
 #                     PAGE
 #==========================================================#

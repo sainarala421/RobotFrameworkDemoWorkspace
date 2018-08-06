@@ -29,6 +29,10 @@ User Clicks "${e_SOURCE}" "${e_TARGET_PAGE_NAME}" Menu
     ...    AND    Focus And Click Element "${${e_TARGET_PAGE_NAME.mainmenu}_MENU_ID} a[href*="${t_submenuHref}"]"
     ...    ELSE    Focus And Click Element "${${e_SOURCE}_LINK} > a:contains("${e_TARGET_PAGE_NAME.mainmenu}")"
 
+User Mouse Overs To "${e_ELEMENT}"
+    JQuery Focus Element "${ ${e_ELEMENT} }"
+    Mouse Over    ${ ${e_ELEMENT} }
+
 #==========================================================#
 #                     INTERNAL KEYWORDS
 #==========================================================#
