@@ -28,8 +28,79 @@ used by the test suites.
 For more information on the directory structure, especially how tests are
 organized within the `src` directory.
 
-Setup
------
+Prerequisites
+--------------
+[] `Python 2.7 
+   <https://www.python.org/download/releases/2.7/>`_
+[] `Web browsers. Note the supported web driver version for web drivers`
+
+Optional Applications
+--------------
+- `Jenkins war file
+   <https://jenkins.io/download/>`_
+- `Java
+   <http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html>_
+- `Report Portal
+   <http://reportportal.io/>`_
+- `Docker
+   <https://www.docker.com/>`_
+- `docker-Selenium
+   <https://github.com/SeleniumHQ/docker-selenium>`_
+- `git repository for your code`
+
+Environment Setup
+-----------------
+Note: This setup is for mac or ubuntu. For windows, kindly setup these values in Environment Variables
+1. Update `bashrc` or `bash_profile`
+```bash
+sudo nano ~/.bash_profile
+```
+2. Add the following in the bash_profile
+```bash
+# Jenkins
+export JENKINWARFILE="/etc/jenkinswarfile"
+export PATH=$PATH:$JENKINWARFILE
+
+# Java
+export JAVA_HOME_8_X64="/usr/bin/java"
+export PATH=$PATH:$JAVA_HOME_8_X64
+```
+3. Save the changes.
+
+Webdriver Setup
+-----------------
+Note: This setup is for MacOS or Ubuntu. For windows, kindly setup these values in Environment Variables.
+1. Download the web drivers
+- `Chromedriver
+   <http://chromedriver.chromium.org/>`_
+- `Firefox
+   <https://github.com/mozilla/geckodriver/releases>`_
+2. Extract the files in a local directory then run the following scripts:
+```bash
+# Chmod to executable file
+chmod +x ~/Downloads/chromedriver
+
+# Move the file from Downloads folder to share folder
+sudo mv -f ~/Downloads/chromedriver /usr/local/share/chromedriver
+
+# Create a symlink
+sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
+```
+
+3. Do the same steps for geckodriver
+
+4. Add the following in the bash_profile
+```bash
+# Web drivers
+export CHROMEDRIVER="/usr/local/bin/chromedriver"
+export PATH=$PATH:$CHROMEDRIVER
+
+export GECKODRIVER="/usr/local/bin/geckodriver"
+export PATH=$PATH:$GECKODRIVER
+```
+
+Installation using pip
+----------------------
 Clone this repository to your local directory.
 Open a terminal and cd to `RobotFrameworkDemoWorkspace` where setup.py is located.
 Run the following in the terminal:
@@ -40,10 +111,13 @@ pip install -e .
 
 Running Tests
 -------------
+Source your bash_profile via the following script in the terminal.
+```bash
+source ~/.bash_profile
+```
 
 Include the `argument_file.txt` found at the top-level directory for non-changing arguments on run time. 
-To run a particular test suite:
-
+To run a particular test suite, using the same terminal where the bash_profile was sourced, run the following:
 ```bash
 pybot --argumentfile argument_file.robot --variable BROWSER:chrome --variable BASE_URL:http://automationpractice.com --variable REMOTE_URL:False --suite AddProductToCartTest .
 ```
@@ -92,3 +166,7 @@ Or
 ```bash
 pybot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:firefox -i DataDrivenLoginTest .
 ```
+
+Feel free to reverse engineer and refactor! :+1:
+------------------------------------------------
+
