@@ -49,34 +49,38 @@ setting table:
 ```bash
 pybot --argumentfile argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -v REMOTE_URL:False -v HEADLESS_CHROME:True -i REGRESSION -d Results .
 ```
+Running Tests : Headless Chrome
+-------------------------------
 Running in Headless Chrome.
-Set HEADLESS_CHROME to True
+Set `HEADLESS_CHROME` to `True`.
 ```bash
 pybot --argumentfile argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -v REMOTE_URL:False -v HEADLESS_CHROME:True -i LoginTest -d Results .
 ```
 
 Running in non-headless Chrome.
-Set HEADLESS_CHROME to False.
+Set `HEADLESS_CHROME` to `False`.
 ```bash
 pybot --argumentfile argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -v REMOTE_URL:False -v HEADLESS_CHROME:False -i DataDrivenLoginTest -d Results .
 ```
 
-Or remove the variable HEADLESS_CHROME
+Or remove the variable `HEADLESS_CHROME`
 ```bash
 pybot --argumentfile argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -v REMOTE_URL:False -i DataDrivenLoginTest -d Results .
 ```
-
-Running tests in firefox or other browsers, update the BROWSER value to the applicable browser.
+Running Tests : Other browsers
+------------------------------
+Running tests in `firefox` or other browsers, update the `BROWSER` value to the applicable browser.
 ```bash
 pybot --argumentfile argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:firefox -v REMOTE_URL:False -i DataDrivenLoginTest -d Results .
 ```
-
-Running tests in Selenium Grid, set REMOTE_URL to TRUE or remove the REMOTE_URL variable.
+Running Tests : Selenium Grid
+-----------------------------
+Running tests in Selenium Grid, set `REMOTE_URL` to `TRUE` or remove the `REMOTE_URL` variable.
 NOTE: Run selenium grid first.
 ```bash
 docker-compose -f DockerFiles/docker-compose.yml up
 ```
-Then run the script on Remote URL using the followng script.
+Then run the script on Remote URL using the following script.
 ```bash
 pybot --argumentfile argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:firefox -v REMOTE_URL:True -i DataDrivenLoginTest -d Results .
 ```
