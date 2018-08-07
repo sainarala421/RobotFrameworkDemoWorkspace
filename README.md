@@ -30,22 +30,16 @@ organized within the `src` directory.
 
 Prerequisites
 --------------
-[] `Python 2.7 
-   <https://www.python.org/download/releases/2.7/>`_
-[] `Web browsers. Note the supported web driver version for web drivers`
+- [Python 2.7](https://www.python.org/download/releases/2.7/)
+- `Web browsers. Note the supported web driver version for web drivers`
 
 Optional Applications
 --------------
-- `Jenkins war file
-   <https://jenkins.io/download/>`_
-- `Java
-   <http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html>_
-- `Report Portal
-   <http://reportportal.io/>`_
-- `Docker
-   <https://www.docker.com/>`_
-- `docker-Selenium
-   <https://github.com/SeleniumHQ/docker-selenium>`_
+- [Jenkins war file](https://jenkins.io/download/)
+- [Java](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- [Report Portal](http://reportportal.io/)
+- [Docker](https://www.docker.com/)
+- [docker-Selenium](https://github.com/SeleniumHQ/docker-selenium)
 - `git repository for your code`
 
 Environment Setup
@@ -71,10 +65,8 @@ Webdriver Setup
 -----------------
 Note: This setup is for MacOS or Ubuntu. For windows, kindly setup these values in Environment Variables.
 1. Download the web drivers
-- `Chromedriver
-   <http://chromedriver.chromium.org/>`_
-- `Firefox
-   <https://github.com/mozilla/geckodriver/releases>`_
+- [Chromedriver](http://chromedriver.chromium.org/)
+- [Firefox](https://github.com/mozilla/geckodriver/releases)
 2. Extract the files in a local directory then run the following scripts:
 ```bash
 # Chmod to executable file
