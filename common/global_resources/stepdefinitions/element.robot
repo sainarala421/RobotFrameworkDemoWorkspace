@@ -20,7 +20,8 @@ User Clicks "${e_SOURCE}" "${e_TARGET_PAGE_NAME}" Menu
     ...    ELSE    Set Variable    ${e_SOURCE}
     ${t_submenuHref} =    Run Keyword If    ${t_elementIsDropdownMenu}
     ...    Get Element "${${t_sourceLink}_LINK}" Attribute "href" Containing Text "${e_TARGET_PAGE_NAME.submenu}"
-    ...    ELSE    Get Element "${${t_sourceLink}_LINK}" Attribute "href" Containing Text "${e_TARGET_PAGE_NAME.mainmenu}"
+    ...    ELSE
+    ...    Get Element "${${t_sourceLink}_LINK}" Attribute "href" Containing Text "${e_TARGET_PAGE_NAME.mainmenu}"
     ${t_submenuHref} =    Run Keyword If    ${t_elementIsDropdownMenu}
     ...    Fetch From Right    ${t_submenuHref}    ://
 
@@ -78,7 +79,8 @@ Get Matching Locator "${e_ELEMENT_CLASS_LOCATOR}" Count
 
 Element "${e_SOURCE}" "${e_TARGET_PAGE_NAME}" Is A Dropdown Menu
     ${t_element}=    Remove Element Locator Type    ${${e_SOURCE}_LINK}
-    ${t_elementMenuIndicator} =    Execute Javascript   return jQuery('${t_element} > a:contains("${e_TARGET_PAGE_NAME}") + script').text()
+    ${t_elementMenuIndicator} =    Execute Javascript
+    ...    return jQuery('${t_element} > a:contains("${e_TARGET_PAGE_NAME}") + script').text()
     Log    ${t_elementMenuIndicator}
     ${r_elementIsDropdown} =    Run Keyword And Return Status
     ...    Should Contain    ${t_elementMenuIndicator}    vbmenu_register
@@ -86,7 +88,8 @@ Element "${e_SOURCE}" "${e_TARGET_PAGE_NAME}" Is A Dropdown Menu
 
 Get Element "${e_ELEMENT}" Attribute "${e_ATTRIBUTE}" Containing Text "${e_TEXT}"
     ${t_element} =    Remove Element Locator Type    ${e_ELEMENT}
-    ${r_elementAttribute} =     Execute Javascript    return jQuery('${t_element} a').filter(function(index){return $(this).text() === "${e_TEXT}";}).attr("${e_ATTRIBUTE}")
+    ${r_elementAttribute} =     Execute Javascript
+    ...    return jQuery('${t_element} a').filter(function(index){return $(this).text() === "${e_TEXT}";}).attr("${e_ATTRIBUTE}")
     [Return]    ${r_elementAttribute}
 
 #==========================================================#

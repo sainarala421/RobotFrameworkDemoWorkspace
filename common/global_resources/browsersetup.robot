@@ -14,7 +14,10 @@ Open Browser To "${BASE_URL}"
     ...    AND    Setup Desired Capabilities
     ...    AND    Open Browser    ${BASE_URL}    browser=${BROWSER}    alias=${ALIAS}    remote_url=${REMOTE_URL}
     ...    desired_capabilities=${DESIRED_CAPABILITIES}
+
+    Comment    Set Selenium Speed and Maximize browser.
     Set Selenium Speed    ${SELENIUM_SPEED}
+    Maximize Browser Window
 
     Comment    Record the test environment details.
     Run Keyword And Ignore Error    Get Test Environment Details
@@ -51,6 +54,9 @@ Set Headless Chrome Options
     \    Call Method    ${t_chromeOptions}    add_argument    ${t_chromeOption}
     Set Suite Variable    ${s_CHROME_OPTIONS}    ${t_chromeOptions}
     Log    ${s_CHROME_OPTIONS}
+
+Setup Browser Window Size
+    Set Window Size    ${DESKTOP_BROWSER_WIDTH}    ${DESKTOP_BROWSER_HEIGHT}
 
 #=================================================#
 #                   LOGGING                       #
