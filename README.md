@@ -3,44 +3,50 @@ Robot Framework Test Suites Demo
 
 This repository contains the Robot Framework Demo workspace. The following topics are covered:
 
-  - `Demo1_Basic` - robot framework scripts using the keywords from libraries
-  - `Demo2_Refactored` - separation of variables, keywords into different .robot files and creation of higer level keywords
-  - `Demo3_Composite` - creation of sub directories for variables
-  - `Demo4_Extended` - extending robot framework for jenkins, report portal, docker-selenium. added option for headless chrome test exection and creation of higher level keywords
+Demo Directory | Description
+-------------- | -------------
+`Demo1_Basic`  | robot framework scripts using the keywords from libraries
+`Demo2_Refactored` | variables and keywords into Variables and Keywords sections respectively
+`Demo3_Composite` | separation of variables, keywords into different .robot files and creation of higer level keywords
+`Demo4_Extended` | extending robot framework for jenkins, report portal, docker-selenium. added option for headless chrome test exection and creation of higher level keywords
 
 Directory Structure
 -------------------
-`common` contains custom Robot Framework libraries and keywords that will be
-used by the test suites.
+Directory | Description
+-------------- | -------------
+`common` | contains custom Robot Framework libraries and keywords that will be used by the test suites.
+`DockerFiles` | contains the docker compose file for docker-selenium
+`JenkinsFiles` | contains the Jenkins file using declarative pipeline syntax for test execution in parallel
+`common\custom_libraries` | contains the custom libraries
+`common\global_resources` | contains the step definitions, test data and global reusable keywords
+`Demo4_Extended` | contains the workspace for the composite and extended robot framework for http://automationpractice.com
+`Demo4_Extended\src\demo\resources` | contains the keywords specific for Demo4_Extended
+`Demo4_Extended\src\demo\resources` | contains the test suites for Demo4_Extended
+`Demo4_Extended\src\demo\suite\availability` | test suites with test cases for checking pages' availability
+`Demo4_Extended\src\demo\suite\functionality` | test suites with test cases checking pages' functionality
+`Demo4_Extended\src\demo\suite\endtoend` | test suites with end to end test cases
+`Results` | directory for report and logs, created on run time
 
-`DockerFiles` contains the docker compose file for docker-selenium
-
-`JenkinsFiles` contains the Jenkins file using declarative pipeline syntax for test execution in parallel
-
-`common\custom_libraries` contains the custom libraries
-
-`common\global_resources` contains the step definitions, test data and global reusable keywords
-
-`Demo4_Extended` contains the workspace for the composite and extended robot framework for http://automationpractice.com
-
-`Demo4_Extended\src\demo\resources` contains the keywords specific for Demo4_Extended
-
-For more information on the directory structure, especially how tests are
-organized within the `src` directory.
+File | Description
+-------------- | -------------
+`setup.py` | prerequisite installation files
+`gitignore` | list of files to be ignored for git
+`argument_file.robot` | run time arguments
+`README.md` | read me file
 
 Prerequisites
 --------------
-- [Python 2.7](https://www.python.org/download/releases/2.7/)
-- `Web browsers. Note the supported web driver version for web drivers`
+- [x] [Python 2.7](https://www.python.org/download/releases/2.7/)
+- [x] `Web browsers. Note the supported web browser version for web drivers`
 
 Optional Applications
---------------
-- [Jenkins war file](https://jenkins.io/download/)
-- [Java](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-- [Report Portal](http://reportportal.io/)
-- [Docker](https://www.docker.com/)
-- [docker-Selenium](https://github.com/SeleniumHQ/docker-selenium)
-- `git repository for your code`
+---------------------
+- [ ]  :octocat: `git repository for your code`
+- [ ] [Jenkins war file](https://jenkins.io/download/)
+- [ ] [Java](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
+- [ ] [Report Portal](http://reportportal.io/)
+- [ ] [Docker](https://www.docker.com/)
+- [ ] [docker-Selenium](https://github.com/SeleniumHQ/docker-selenium)
 
 Environment Setup
 -----------------
@@ -159,6 +165,6 @@ Or
 pybot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:firefox -i DataDrivenLoginTest .
 ```
 
-Feel free to reverse engineer and refactor! :+1:
-------------------------------------------------
+Feel free to reverse engineer and refactor! :rocket:
+----------------------------------------------------
 
