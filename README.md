@@ -69,7 +69,6 @@ sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
 ```
 
 3. Do the same steps for geckodriver
-
 4. Add the following in the bash_profile
 ```bash
 # Edit bash_profile
@@ -170,44 +169,31 @@ sudo nano ~/.bash_profile
 # Jenkins
 export JENKINWARFILE="/etc/jenkinswarfile"
 export PATH=$PATH:$JENKINWARFILE
-
 # Java
 export JAVA_HOME_8_X64="/usr/bin/java"
 export PATH=$PATH:$JAVA_HOME_8_X64
 ```
 5. Save the changes to bash_profile.
-
 6. Run Jenkins. Use any available port
 ```bash
 java -jar jenkins.war --httpPort=9090
 ```
 7. Open http://localhost:9090, then create a `Pipeline`. Go to `New Item` > `Pipeline`.
-
 8. Enter a name in the `Enter an item name` textfield then click `OK`.
-
 9. Scroll down and select `Pipeline script from scm` as Definition in the `Pipeline` section.
-
 10. Select `Git` in the `SCM` field.
-
 11. Fillout the `Repository URL` with your git workspace uri. 
 For this example: `https://github.com/enhanceTAfrancis/RobotFrameworkDemoWorkspace.git`.
-
 12. Fillout the Credentials field with your github credentials.
-
 13. Fillout the `Script Path` text field. For this example: `JenkinsFiles/pipelinetestrunner`.
-
 14. Click Save.
-
 15. `Build` the pipeline you created. The build will initially fail.
-
 16. Rerun the build, and the build button should now be `Build with Parameters`.
-
 17. Click `Build`
 
 Docker-Selenium Setup
 ---------------------
 1. Install [Docker](https://www.docker.com/)
-
 2. Clone the docker-selenium repo.
 ```bash
 git clone https://github.com/SeleniumHQ/docker-selenium.git
@@ -217,12 +203,10 @@ git clone https://github.com/SeleniumHQ/docker-selenium.git
 ```bash
 VERSION=local make build
 ```
-
 4. Display all docker images and take note of the created images:
 ```bash
 docker image ls
 ```
-
 5. Run the hubs and nodes. cd to the `RobotFrameworkDemoWorkspace\DockerFiles`.
 ```bash
 docker-compose -f docker-compose.yml up
