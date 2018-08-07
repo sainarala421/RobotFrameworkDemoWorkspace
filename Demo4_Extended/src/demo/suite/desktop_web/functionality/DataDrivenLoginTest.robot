@@ -16,6 +16,11 @@ ${username}             abc@234.com
 ${validpassword}        Test@123
 ${invalidpassword}      Test@123Invalid
 
-*** Test Cases ***     Credential Type    Username       Password
-Valid User Login       Valid              ${username}    ${validpassword}
-Invalid User Login     Invalid            ${username}    ${invalidpassword}
+*** Test Cases ***          Credential Type    Username        Password
+Valid User Login            Valid              ${username}     ${validpassword}
+Invalid Password            Invalid            ${username}     ${invalidpassword}
+Invalid Email               Invalid            abc@2345.com    ${validpassword}
+Invalid Email Format        Invalid            abc@234         ${validpassword}
+Blank Email                 Invalid            ${EMPTY}        ${validpassword}
+Blank Password              Invalid            ${username}     ${EMPTY}
+Blank Email And Password    Invalid            ${EMPTY}        ${EMPTY}
