@@ -31,6 +31,7 @@ User Clicks "${e_SOURCE}" "${e_TARGET_PAGE_NAME}" Menu
     ...    ELSE    Focus And Click Element "${${e_SOURCE}_LINK} > a:contains("${e_TARGET_PAGE_NAME.mainmenu}")"
 
 User Mouse Overs To "${e_ELEMENT}"
+    Wait Until Element "${e_ELEMENT}" Is "Visible"
     JQuery Focus Element "${ ${e_ELEMENT} }"
     Mouse Over    ${ ${e_ELEMENT} }
 
@@ -97,6 +98,7 @@ Get Element "${e_ELEMENT}" Attribute "${e_ATTRIBUTE}" Containing Text "${e_TEXT}
 #==========================================================#
 Focus And Click Element "${e_ELEMENT}"
     [Documentation]    This keyword focus on an element before it clicks on it.
+    Wait Until Element "${e_ELEMENT}" Is "Visible"
     JQuery Focus Element "${e_ELEMENT}"
     Click Element    ${e_ELEMENT}
 

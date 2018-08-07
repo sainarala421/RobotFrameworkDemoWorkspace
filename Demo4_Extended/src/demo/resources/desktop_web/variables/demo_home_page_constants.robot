@@ -94,4 +94,3 @@ ${FOOTER_BOTTOM}                          css=.bottom-footer
 ...                                       @{HOME_PAGE_LINKS}    @{CMSINFO_CORE_ELEMENTS_LIST}    ${EDITORIAL_BLOCK}
 ...                                       @{NEWS_LETTER_CORE_ELEMENTS_LIST}    @{SOCIAL_BLOCK_CORE_ELEMENTS_LIST}
 ...                                       @{FOOTER_CORE_ELEMENTS_LIST}
-

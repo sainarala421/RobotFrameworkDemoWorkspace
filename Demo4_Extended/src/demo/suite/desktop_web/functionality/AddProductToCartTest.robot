@@ -24,7 +24,7 @@ Guest User Product Cart Addition Of Item
     Then "Shopping Cart Quantity" Should Contain The Value "${productCount}"
 
 Logged In User Product Cart Addition Of Item
-    Given User Login In Using "Valid" Username "${username}" And Password "${validpassword}"
+    Given User Login Using "Valid" Username "${username}" And Password "${validpassword}"
     And User Navigates To "Automation Practice Home" Page
     When User Adds "${productCount}" "Home Page Popular" Products To Cart
     Then "Shopping Cart Quantity" Should Contain The Value "${productCount}"

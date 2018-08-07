@@ -6,7 +6,7 @@ Resource          ${DEMO4_VARIABLE_DIR}demo_login_page_constants.robot
 #==================================#
 #          TEST TEMPLATES          #
 #==================================#
-User Login In Using "${e_CREDENTIAL_TYPE}" Username "${e_USERNAME}" And Password "${e_PASSWORD}"
+User Login Using "${e_CREDENTIAL_TYPE}" Username "${e_USERNAME}" And Password "${e_PASSWORD}"
     [Documentation]    This template is used for login tests using different login credentials
     Given User Is In "Automation Practice Home" Page
     When User Clicks "Sign In Button"
