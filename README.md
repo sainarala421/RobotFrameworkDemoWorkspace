@@ -1,25 +1,29 @@
 Robot Framework Test Suites Demo
 ======================================
 
-This repository contains our entire Robot Framework Demo workspace
-the covering the following:
+This repository contains the Robot Framework Demo workspace. The following topics are covered:
 
-  - Basic - bare bones robot framework script
-  - Refactored - separating the variables, keywords into different .robot files
-  - Composite - creating sub directories for variables, custom libraries and creating argument file to contain the variables
-  - Extended - extending robot framework for jenkins, report portal, docker-selenium
+  - `Demo1_Basic` - robot framework scripts using the keywords from libraries
+  - `Demo2_Refactored` - separation of variables, keywords into different .robot files and creation of higer level keywords
+  - `Demo3_Composite` - creation of sub directories for variables
+  - `Demo4_Extended` - extending robot framework for jenkins, report portal, docker-selenium. added option for headless chrome test exection and creation of higher level keywords
 
 Directory Structure
 -------------------
 `common` contains custom Robot Framework libraries and keywords that will be
 used by the test suites.
 
-`externals` contains extensions for external libraries by for the development /
-deployment workflow but not by Robot Framework itself.
+`DockerFiles` contains the docker compose file for docker-selenium
 
-`src` contains the actual Robot Framework test suites.
+`JenkinsFiles` contains the Jenkins file using declarative pipeline syntax for test execution in parallel
 
-`test_runner` contains helper scripts for running the test suites.
+`common\custom_libraries` contains the custom libraries
+
+`common\global_resources` contains the step definitions, test data and global reusable keywords
+
+`Demo4_Extended` contains the workspace for the composite and extended robot framework for http://automationpractice.com
+
+`Demo4_Extended\src\demo\resources` contains the keywords specific for Demo4_Extended
 
 For more information on the directory structure, especially how tests are
 organized within the `src` directory.
