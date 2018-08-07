@@ -41,12 +41,46 @@ Tests must be invoked to include the `argument_file.txt` found at the
 top-level directory. To run a particular test suite:
 
 ```bash
-pybot --argumentfile argument_file.txt --suite ContestInfoAvailabilityTest src/
+pybot --argumentfile argument_file.robot --variable BROWSER:chrome --variable BASE_URL:http://automationpractice.com --variable REMOTE_URL:False --suite AddProductToCartTest -d Results .
 ```
 
 Tests may also be filtered using tags defined in a test suite's `Default Tags`
 setting table:
-
 ```bash
-pybot --argumentfile argument_file.txt --include CONTEST src/
+pybot --argumentfile argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -v REMOTE_URL:False -v HEADLESS_CHROME:True -i REGRESSION -d Results .
+```
+Running in Headless Chrome.
+Set HEADLESS_CHROME to True
+```bash
+pybot --argumentfile argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -v REMOTE_URL:False -v HEADLESS_CHROME:True -i LoginTest -d Results .
+```
+
+Running in non-headless Chrome.
+Set HEADLESS_CHROME to False.
+```bash
+pybot --argumentfile argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -v REMOTE_URL:False -v HEADLESS_CHROME:False -i DataDrivenLoginTest -d Results .
+```
+
+Or remove the variable HEADLESS_CHROME
+```bash
+pybot --argumentfile argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -v REMOTE_URL:False -i DataDrivenLoginTest -d Results .
+```
+
+Running tests in firefox or other browsers, update the BROWSER value to the applicable browser.
+```bash
+pybot --argumentfile argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:firefox -v REMOTE_URL:False -i DataDrivenLoginTest -d Results .
+```
+
+Running tests in Selenium Grid, set REMOTE_URL to TRUE or remove the REMOTE_URL variable.
+NOTE: Run selenium grid first.
+```bash
+docker-compose -f DockerFiles/docker-compose.yml up
+```
+Then run the script on Remote URL using the followng script.
+```bash
+pybot --argumentfile argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:firefox -v REMOTE_URL:True -i DataDrivenLoginTest -d Results .
+```
+Or
+```bash
+pybot --argumentfile argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:firefox -i DataDrivenLoginTest -d Results .
 ```
