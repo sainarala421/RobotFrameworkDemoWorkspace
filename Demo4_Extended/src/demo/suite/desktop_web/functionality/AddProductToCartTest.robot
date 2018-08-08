@@ -20,11 +20,11 @@ ${productCount}     5
 *** Test Cases ***
 Guest User Product Cart Addition Of Item
     Given User Is In "Automation Practice Home" Page
-    When User Adds "${productCount}" "Home Page Popular" Products To Cart
+    When User Adds "${productCount}" Random "Home Page Popular" Products To Cart
     Then "Shopping Cart Quantity" Should Contain The Value "${productCount}"
 
 Logged In User Product Cart Addition Of Item
     Given User Login Using "Valid" Username "${username}" And Password "${validpassword}"
     And User Navigates To "Automation Practice Home" Page
-    When User Adds "${productCount}" "Home Page Popular" Products To Cart
+    When User Adds "${productCount}" Random "Home Page Popular" Products To Cart
     Then "Shopping Cart Quantity" Should Contain The Value "${productCount}"
