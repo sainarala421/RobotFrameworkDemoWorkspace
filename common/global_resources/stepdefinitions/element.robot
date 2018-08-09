@@ -5,6 +5,10 @@
 User Clicks "${e_ELEMENT}"
     Focus And Click Element "${ ${e_ELEMENT} }"
 
+User Scrolls And Clicks "${e_ELEMENT}"
+    Scroll Element Into View    ${e_ELEMENT}
+    Focus And Click Element "${ ${e_ELEMENT} }"
+
 User Clicks "${e_ELEMENT}" Via jQuery
     JQuery Click Element "${ ${e_ELEMENT} }"
 

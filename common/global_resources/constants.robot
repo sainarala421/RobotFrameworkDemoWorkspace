@@ -23,8 +23,14 @@ ${AUTOMATION_PRACTICE_HOME_URL}         ${BASE_URL}
 ${HEADLESS}             ${FALSE}
 
 #=================================================#
-#                 DESIRED_CAPABILITIES            #
+#                 DESIRED CAPABILITIES            #
 #=================================================#
 ${PLATFORM}             ANY
 ${NATIVE_EVENTS}        ${FALSE}
 ${ALERT_BEHAVIOUR}      dismiss
+
+#=================================================#
+#                 DEFAULT BROWSER SIZE            #
+#=================================================#
+${DESKTOP_BROWSER_WIDTH}     1024
+${DESKTOP_BROWSER_HEIGHT}    768

@@ -7,6 +7,8 @@ User Adds "${e_PRODUCT_QUANTITY}" Random "${e_PRODUCT_TYPE}" Products To Cart
     User Clicks "${e_PRODUCT_TYPE} Menu"
     Comment    Count the number of products or options.
     ${t_productCount}=    Get Matching Locator "${FEATURED_PRODUCTS}" Count
+    ${t_productType}=    Set Variable If    '${e_PRODUCT_TYPE.lower()}' == 'home page popular'
+    ...    0    1
     Comment    Add the specified number of random products to cart.
     : FOR    ${INDEX}    IN RANGE    0    ${e_PRODUCT_QUANTITY}
     \    ${randomInteger} =    Evaluate    random.randint(1, ${t_productCount} - 1)    modules=random
@@ -15,7 +17,7 @@ User Adds "${e_PRODUCT_QUANTITY}" Random "${e_PRODUCT_TYPE}" Products To Cart
     \    Focus    ${FEATURED_PRODUCTS}:eq(${randomInteger})
     \    Mouse Over    ${FEATURED_PRODUCTS}:eq(${randomInteger})
     \    Comment    Click the add to cart button then click Continue shopping
-    \    Focus And Click Element "${FEATURED_PRODUCTS}:eq(${randomInteger}) .ajax_add_to_cart_button"
+    \    Focus And Click Element "${FEATURED_PRODUCTS}:eq(${randomInteger}) ${ADD_TO_CART_BUTTON}"
     \    Focus And Click Element "${CONTINUE_SHOPPING_BUTTON}"
 
 User Adds A "${e_PRODUCT_PRICE}" "${e_PRODUCT_NAME}" In "${e_PRODUCT_TYPE}" Product
@@ -30,4 +32,4 @@ User Adds A "${e_PRODUCT_PRICE}" "${e_PRODUCT_NAME}" In "${e_PRODUCT_TYPE}" Prod
     Scroll Element Into View    ${t_product}
     Focus    ${t_product}
     Mouse Over    ${t_product}
-    Focus And Click Element "${t_product} ~ ${ADD_TO_CART_BUTTON}"
+    Focus And Click Element "${t_product} ~ div:has(${ADD_TO_CART_BUTTON}) ${ADD_TO_CART_BUTTON}"

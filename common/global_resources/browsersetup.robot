@@ -17,7 +17,7 @@ Open Browser To "${BASE_URL}"
 
     Comment    Set Selenium Speed and Maximize browser.
     Set Selenium Speed    ${SELENIUM_SPEED}
-    Maximize Browser Window
+    Setup Default Browser Window Size
 
     Comment    Record the test environment details.
     Run Keyword And Ignore Error    Get Test Environment Details
@@ -55,7 +55,7 @@ Set Headless Chrome Options
     Set Suite Variable    ${s_CHROME_OPTIONS}    ${t_chromeOptions}
     Log    ${s_CHROME_OPTIONS}
 
-Setup Browser Window Size
+Setup Default Browser Window Size
     Set Window Size    ${DESKTOP_BROWSER_WIDTH}    ${DESKTOP_BROWSER_HEIGHT}
 
 #=================================================#
@@ -63,7 +63,10 @@ Setup Browser Window Size
 #=================================================#
 Log Console Errors
     [Documentation]    Use this keyword to run on keyword failure.
-    Capture Page Screenshot
+    Run Keyword And Ignore Error    Capture Page Screenshot
+    ${t_windowWidth}    ${windowLength}    Get Window Size
+    Run Keyword And Ignore Error
+    ...    Set Suite Documentation    Window Size: ${t_windowWidth} x ${windowLength};    append = True
     ${t_logs}=    Get Browser Logs
     ${t_logs}=    Remove Duplicates    ${t_logs}
     Log    ${t_logs}
