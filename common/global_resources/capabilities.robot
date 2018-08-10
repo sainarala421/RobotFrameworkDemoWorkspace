@@ -29,7 +29,6 @@ Setup Desired Capabilities
     ...    build=@{TEST TAGS}[0]
     ...    tags=@{TEST TAGS}
     ...    AND    Log    '@{TEST TAGS}'
-    ...    AND    Set Global Variable    ${g_IS_SAUCELABS}    ${t_isSauceLabs}
-
+    Set Global Variable    ${g_IS_SAUCELABS}    ${t_isSauceLabs}
     Set Suite Variable    ${s_DESIRED_CAPABILITIES}    &{t_dcDictionary}
     Log    ${s_DESIRED_CAPABILITIES}

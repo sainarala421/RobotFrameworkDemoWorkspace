@@ -13,6 +13,7 @@ Resource          constants.robot
 Resource          filepaths.robot
 Resource          libraries.robot
 Resource          browsersetup.robot
+Resource          saucelabs.robot
 Resource          stepdefinitions${/}assertions.robot
 Resource          stepdefinitions${/}browsermanagement.robot
 Resource          stepdefinitions${/}datetime.robot

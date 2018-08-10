@@ -106,7 +106,3 @@ Log Environment Details In Suite Documentation
 Document Window Size
     ${t_windowWidth}    ${windowLength}    Get Window Size
     Set Suite Documentation    Window Size: ${t_windowWidth} x ${windowLength};    append = True
-
-Get "${e_RUN_TYPE}" Result
-    Set Suite Variable    ${s_${e_RUN_TYPE}_STATUS}    ${${e_RUN_TYPE} STATUS}
-    Log    ${s_${e_RUN_TYPE}_STATUS}
