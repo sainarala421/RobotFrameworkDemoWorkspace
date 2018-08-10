@@ -64,9 +64,6 @@ Setup Default Browser Window Size
 Log Console Errors
     [Documentation]    Use this keyword to run on keyword failure.
     Run Keyword And Ignore Error    Capture Page Screenshot
-    ${t_windowWidth}    ${windowLength}    Get Window Size
-    Run Keyword And Ignore Error
-    ...    Set Suite Documentation    Window Size: ${t_windowWidth} x ${windowLength};    append = True
     ${t_logs}=    Get Browser Logs
     ${t_logs}=    Remove Duplicates    ${t_logs}
     Log    ${t_logs}
@@ -79,9 +76,9 @@ Get Browser Host IP
 
 Get Test Environment Details
     [Documentation]    This test is for logging the test environment details.
-    ...    Note: this is currently for chrome browser only
     ${t_extendedS2Library} =    Get Library Instance    ExtendedSelenium2Library
-    ${t_envDictionary}=    Create Dictionary
+    ${t_windowWidth}    ${windowLength}    Get Window Size
+    ${t_envDictionary}=    Create Dictionary    window size = ${t_windowWidth} x ${windowLength}
     ${t_capabilities} =    Set Variable    ${t_extendedS2Library._current_browser().capabilities}
     :FOR    ${key}    IN    @{t_capabilities.keys()}
     \    Set To Dictionary    ${t_envDictionary}    ${key}=${t_capabilities["${key}"]}
@@ -98,3 +95,7 @@ Log Environment Details In Suite Documentation
     Set Suite Documentation    Browser Alias: ${ALIAS};    append = True
     :FOR    ${key}    IN    @{t_envDictionary}
     \    Set Suite Documentation    ${key} : ${t_envDictionary["${key}"]};    append = True
+
+Document Window Size
+    ${t_windowWidth}    ${windowLength}    Get Window Size
+    Set Suite Documentation    Window Size: ${t_windowWidth} x ${windowLength};    append = True

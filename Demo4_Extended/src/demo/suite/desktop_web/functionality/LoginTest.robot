@@ -17,6 +17,7 @@ ${invalidpassword}      Test@123Invalid
 
 *** Test Cases ***
 Valid User Login
+    [Tags]    ValidLogin    LoggedInUser
     Given User Is In "Automation Practice Home" Page
     When User Clicks "Sign In Button"
     And User Inputs Text "${username}" On Field "Email Text Field"
@@ -25,6 +26,7 @@ Valid User Login
     Then User Should Be Redirected To "User Dashboard" Page
 
 Invalid User Login
+    [Tags]    InvalidLogin
     Given User Is In "Automation Practice Home" Page
     When User Clicks "Sign In Button"
     And User Inputs Text "${username}" On Field "Email Text Field"

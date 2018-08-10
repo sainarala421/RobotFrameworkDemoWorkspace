@@ -32,5 +32,5 @@ ${ALERT_BEHAVIOUR}      dismiss
 #=================================================#
 #                 DEFAULT BROWSER SIZE            #
 #=================================================#
-${DESKTOP_BROWSER_WIDTH}     1024
+${DESKTOP_BROWSER_WIDTH}     1366
 ${DESKTOP_BROWSER_HEIGHT}    768
