@@ -23,5 +23,6 @@ setup(
         'robotframework-faker',
         'robotframework-zoomba',
         'robotframework-ride',
+        'sauceclient',
     ]
 )

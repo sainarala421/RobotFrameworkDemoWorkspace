@@ -20,3 +20,7 @@ Resource          stepdefinitions${/}element.robot
 Resource          stepdefinitions${/}formelement.robot
 Resource          stepdefinitions${/}selectelement.robot
 Resource          stepdefinitions${/}jquerytool.robot
+
+#Custom Libraries
+Library           ${CUSTOM_LIBRARIES_DIR}etc${/}saucelabskeywords.py
+Library           ${CUSTOM_LIBRARIES_DIR}etc${/}canonicalpath.py

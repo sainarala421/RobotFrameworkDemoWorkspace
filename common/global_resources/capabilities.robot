@@ -22,12 +22,14 @@ Setup Desired Capabilities
     Comment    Assign sauce credentials in capabilities for sauce labs test execution
     ${t_isSauceLabs}=    Run Keyword And Return Status
     ...    Should Contain    ${REMOTE_URL.lower()}    saucelabs.com
-    Run Keyword If    ${t_isSauceLabs}
+    Run Keyword If    ${t_isSauceLabs}    Run Keywords
     ...    Set To Dictionary    ${t_dcDictionary}
     ...    username=%{SAUCE_USERNAME}
     ...    accesskey=%{SAUCE_ACCESS_KEY}
-    ...    build='RFSauce'
-    ...    tags=['${TEST_NAME}']
+    ...    build=@{TEST TAGS}[0]
+    ...    tags=@{TEST TAGS}
+    ...    AND    Log    '@{TEST TAGS}'
+    ...    AND    Set Global Variable    ${g_IS_SAUCELABS}    ${t_isSauceLabs}
 
-    Set Suite Variable    ${DESIRED_CAPABILITIES}    &{t_dcDictionary}
-    Log    ${DESIRED_CAPABILITIES}
+    Set Suite Variable    ${s_DESIRED_CAPABILITIES}    &{t_dcDictionary}
+    Log    ${s_DESIRED_CAPABILITIES}

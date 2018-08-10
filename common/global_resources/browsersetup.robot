@@ -13,7 +13,7 @@ Open Browser To "${BASE_URL}"
     ...    Comment    Keyword for non-headless browsers.
     ...    AND    Setup Desired Capabilities
     ...    AND    Open Browser    ${BASE_URL}    browser=${BROWSER}    alias=${ALIAS}    remote_url=${REMOTE_URL}
-    ...    desired_capabilities=${DESIRED_CAPABILITIES}
+    ...    desired_capabilities=${s_DESIRED_CAPABILITIES}
 
     Comment    Set Selenium Speed and Maximize browser.
     Set Selenium Speed    ${SELENIUM_SPEED}
@@ -80,9 +80,16 @@ Get Test Environment Details
     ${t_windowWidth}    ${windowLength}    Get Window Size
     ${t_envDictionary}=    Create Dictionary    window size = ${t_windowWidth} x ${windowLength}
     ${t_capabilities} =    Set Variable    ${t_extendedS2Library._current_browser().capabilities}
+
+    Comment    Get the browser capabilities and assign to dictionary.
     :FOR    ${key}    IN    @{t_capabilities.keys()}
     \    Set To Dictionary    ${t_envDictionary}    ${key}=${t_capabilities["${key}"]}
+    \    Log    ${key}=${t_capabilities["${key}"]}
     Set Suite Variable    ${ENVIRONMENT_DETAILS}    ${t_envDictionary}
+
+    Run Keyword If    ${g_IS_SAUCELABS}    Run Keywords
+    ...    Comment    Get Session ID / Job ID for SauceLabs
+    ...    AND    Set Suite Variable    ${s_JOB_ID}    ${t_capabilities["webdriver.remote.sessionid"]}
 
 Log Environment Details In Suite Documentation
     ${envVarDictionaryExists} =    Run Keyword And Return Status
@@ -99,3 +106,7 @@ Log Environment Details In Suite Documentation
 Document Window Size
     ${t_windowWidth}    ${windowLength}    Get Window Size
     Set Suite Documentation    Window Size: ${t_windowWidth} x ${windowLength};    append = True
+
+Get "${e_RUN_TYPE}" Result
+    Set Suite Variable    ${s_${e_RUN_TYPE}_STATUS}    ${${e_RUN_TYPE} STATUS}
+    Log    ${s_${e_RUN_TYPE}_STATUS}

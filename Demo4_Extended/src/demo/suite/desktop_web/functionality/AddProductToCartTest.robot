@@ -4,7 +4,8 @@ Default Tags         AddProductToCartTest    Demo    FUNCTIONALITY    HIGH
 Force Tags           REGRESSION
 Test Setup           Run Keywords    Open Browser To "${BASE_URL}"
 ...                  AND    Set Test Documentation    Test Case: ${TEST NAME}
-Test Teardown        Close Browser
+Test Teardown        Run Keywords    Close Browser
+...                  AND    Get "Test" Result
 Suite Teardown       Run Keywords    Log Environment Details In Suite Documentation
 ...                  AND    Close All Browsers
 Resource             ${GLOBAL_RESOURCES_FILE_PATH}libraries.robot

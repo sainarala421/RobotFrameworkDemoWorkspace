@@ -11,5 +11,8 @@ Resource             ${DEMO4_VARIABLE_DIR}demo_home_page_constants.robot
 
 *** Test Cases ***
 Home Page Availability
+    [Tags]    SauceLabs
     Given User Is In "Automation Practice Home" Page
     Then The "Home Page" Elements Should Be Loaded Successfully
+    Update Saucelabs Test Result    ${s_JOB_ID}    true
+    ...    %{SAUCE_USERNAME}    %{SAUCE_ACCESS_KEY}
