@@ -8,7 +8,7 @@ ${INTERNAL_TIMEOUT}       10s
 ${INTERNAL_INTERVAL}      2s
 ${SELENIUM_SPEED}         0.5
 ${ALIAS}                  browser1
-${REMOTE_URL}             http://localhost:4444/wd/hub
+${SELENIUM_GRID_URL}      http://localhost:4444/wd/hub
 ${HEADLESS_CHROME}        False
 
 #=================================================#

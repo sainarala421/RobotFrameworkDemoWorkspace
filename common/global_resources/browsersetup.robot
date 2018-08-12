@@ -3,16 +3,15 @@
 #                    BEFORE                       #
 #=================================================#
 Open Browser To "${BASE_URL}"
-    ${REMOTE_URL}=     Set Variable If     '${REMOTE_URL}' == 'False'
-    ...    ${EMPTY}    ${REMOTE_URL}
-
+    Get Remote URL
+    Test Environment Is Sauce Labs
     Run Keyword If    ${HEADLESS_CHROME} and '${BROWSER.lower()}' == 'chrome'
     ...    Run Keywords    Create Headless Chrome Webdriver
     ...    AND    Go To    ${BASE_URL}
     ...    ELSE    Run Keywords
     ...    Comment    Keyword for non-headless browsers.
     ...    AND    Setup Desired Capabilities
-    ...    AND    Open Browser    ${BASE_URL}    browser=${BROWSER}    alias=${ALIAS}    remote_url=${REMOTE_URL}
+    ...    AND    Open Browser    ${BASE_URL}    browser=${BROWSER}    alias=${ALIAS}    remote_url=${s_REMOTE_URL}
     ...    desired_capabilities=${s_DESIRED_CAPABILITIES}
 
     Comment    Set Selenium Speed and Maximize browser.
@@ -28,23 +27,21 @@ Open Browser Instance "${e_NEW_ALIAS}" To "${BASE_URL}"
 
 Create Headless Chrome Webdriver
     [Documentation]    Create the chrome webdriver for headless chrome.
-    Set Headless Chrome Options
-    Comment    Set chrome options value.
-    ${t_chromeOptions}=     Run Keyword If    '${REMOTE_URL}' == 'False'
-    ...    Call Method     ${s_CHROME_OPTIONS}    to_capabilities
-    ...    ELSE    Set Variable    ${s_CHROME_OPTIONS}
-
     Comment    Set remoteURL value.
-    ${t_remoteURL}=     Set Variable If     '${REMOTE_URL}' == 'False'
-    ...    ${EMPTY}    ${REMOTE_URL}
+    Get Remote URL
 
-    Run Keyword If    '${t_remoteURL}' == '${EMPTY}'    Run Keywords
+    Comment    Set chrome options value.
+    Set Headless Chrome Options
+    ${t_chromeOptions}=     Run Keyword If    '${s_REMOTE_URL}' != 'False'
+    ...    Set Chrome Options For Remote Executions
+
+    Run Keyword If    '${s_REMOTE_URL}' == '${EMPTY}'    Run Keywords
     ...    Comment    Non-remote headless test execution.
     ...    AND    Create Webdriver    Chrome   alias=${ALIAS}    chrome_options=${s_CHROME_OPTIONS}
     ...    ELSE    Run Keywords
     ...    Comment    Remote headless test execution.
-    ...    AND    Create Webdriver    Remote    command_executor=${t_remoteURL}    alias=${ALIAS}
-    ...    desired_capabilities=${s_CHROME_OPTIONS}
+    ...    AND    Create Webdriver    Remote    command_executor=${s_REMOTE_URL}    alias=${ALIAS}
+    ...    desired_capabilities=${s_REMOTE_CHROME_OPTIONS}
 
 Set Headless Chrome Options
     [Documentation]    Add chrome arguments for headless and no sandbox.
@@ -55,9 +52,39 @@ Set Headless Chrome Options
     Set Suite Variable    ${s_CHROME_OPTIONS}    ${t_chromeOptions}
     Log    ${s_CHROME_OPTIONS}
 
+Set Chrome Options For Remote Executions
+    ${t_chromeOptions}=     Run Keyword If    '${s_REMOTE_URL}' != 'False'
+    ...    Call Method     ${s_CHROME_OPTIONS}    to_capabilities
+    &{t_optionsDictionary}=    Create Dictionary
+    &{t_optionsDictionary}=   Copy Dictionary   ${t_chromeOptions}
+    Set Sauce Labs Credentials To "${t_optionsDictionary}" Dictionary
+    Set Suite Variable    ${s_REMOTE_CHROME_OPTIONS}    &{t_optionsDictionary}
+
+Test Environment Is Sauce Labs
+    [Documentation]    Check if test environment is Saucelabs and assign value to global variable.
+   ${t_isSauceLabs}=    Run Keyword And Return Status
+    ...    Should Contain    ${REMOTE_URL.lower()}    saucelabs.com
+    Set Global Variable    ${g_IS_SAUCELABS}    ${t_isSauceLabs}
+
 Setup Default Browser Window Size
     Set Window Size    ${DESKTOP_BROWSER_WIDTH}    ${DESKTOP_BROWSER_HEIGHT}
 
+Get Remote URL
+    ${t_remoteURLVarExists} =    Run Keyword And Return Status
+    ...    Variable Should Exist    ${REMOTE_URL}
+
+    Comment    Assign empty if the variable is not in use in pybot command, else assign the remote url value.
+    ${t_remoteURL}=     Set Variable If    ${t_remoteURLVarExists}
+    ...    ${REMOTE_URL}    ${EMPTY}
+
+    Comment    Handle True and False values for remote url.
+    ${t_remoteURL}=     Set Variable If
+    ...    '${t_remoteURL}' == 'False' and ${t_remoteURLVarExists}     ${EMPTY}
+    ...    '${t_remoteURL}' == 'True' and ${t_remoteURLVarExists}    ${SELENIUM_GRID_URL}
+    ...    '${t_remoteURLVarExists}' == 'False'    ${EMPTY}
+    ...    ${t_remoteURL}
+
+    Set Suite Variable    ${s_REMOTE_URL}    ${t_remoteURL}
 #=================================================#
 #                   LOGGING                       #
 #=================================================#

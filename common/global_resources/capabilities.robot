@@ -19,16 +19,6 @@ Setup Desired Capabilities
     ...    nativeEvents=${NATIVE_EVENTS}
     ...    unexpectedAlertBehaviour=${ALERT_BEHAVIOUR}
 
-    Comment    Assign sauce credentials in capabilities for sauce labs test execution
-    ${t_isSauceLabs}=    Run Keyword And Return Status
-    ...    Should Contain    ${REMOTE_URL.lower()}    saucelabs.com
-    Run Keyword If    ${t_isSauceLabs}    Run Keywords
-    ...    Set To Dictionary    ${t_dcDictionary}
-    ...    username=%{SAUCE_USERNAME}
-    ...    accesskey=%{SAUCE_ACCESS_KEY}
-    ...    build=@{TEST TAGS}[0]
-    ...    tags=@{TEST TAGS}
-    ...    AND    Log    '@{TEST TAGS}'
-    Set Global Variable    ${g_IS_SAUCELABS}    ${t_isSauceLabs}
+    Set Sauce Labs Credentials To "${t_dcDictionary}" Dictionary
     Set Suite Variable    ${s_DESIRED_CAPABILITIES}    &{t_dcDictionary}
     Log    ${s_DESIRED_CAPABILITIES}
