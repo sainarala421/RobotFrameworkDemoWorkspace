@@ -21,7 +21,7 @@
        string (name: 'HEADLESS_CHROME', defaultValue: 'False',
               description: 'Headless chrome settings')
        string (name: 'TEST_SUITE_TAG', defaultValue: 'LoginTest',
-              description: 'Test Suite')      
+              description: 'Test Suite')  
     }
     /*options { 
         retry(3) 
@@ -58,7 +58,7 @@
                     }
                     steps {
                         sh '''#!/bin/bash
-                            pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:chrome -v REMOTE_URL:$REMOTE_URL -v HEADLESS_CHROME:$HEADLESS_CHROME -i $TEST_SUITE_TAG .
+                            pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:chrome -v REMOTE_URL:$REMOTE_URL -v HEADLESS_CHROME:$HEADLESS_CHROME -i $TEST_SUITE .
                         '''
                     }
                 }
@@ -79,26 +79,6 @@
                     steps {
                         sh '''#!/bin/bash
                             pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:firefox -v REMOTE_URL:$REMOTE_URL -i $TEST_SUITE_TAG .
-                        '''
-                    }
-                }
-                stage ('Stage 2.3: Safari Browser Test Execution'){
-                    post{
-                        failure{
-                                publishHTML([
-                                    allowMissing: false, 
-                                    keepAll: true,
-                                    alwaysLinkToLastBuild: true,
-                                    reportDir: 'Results', 
-                                    reportFiles: 'report.html', 
-                                    reportName: 'Robot Framework Report - safari', 
-                                    reportTitles: 'Reports: safari'
-                                ])
-                        }
-                    }
-                    steps {
-                        sh '''#!/bin/bash
-                            pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:safari -v REMOTE_URL:$REMOTE_URL -i $TEST_SUITE_TAG .
                         '''
                     }
                 }

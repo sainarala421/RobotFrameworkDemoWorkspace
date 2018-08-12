@@ -1,0 +1,77 @@
+#!/usr/bin/env groovy
+/*
+ * This Jenkinsfile is intended to run on https://ci.jenkins.io and may fail anywhere else.
+ * It makes assumptions about plugins being installed, labels mapping to nodes that can build what is needed, etc.
+ *
+ * The required labels are "java" and "docker" - "java" would be any node that can run Java builds. It doesn't need
+ * to have Java installed, but some setups may have nodes that shouldn't have heavier builds running on them, so we
+ * make this explicit. "docker" would be any node with docker installed.
+ */
+
+ pipeline {
+    agent {
+        // Node or agent for test execution.
+        label 'master'
+    }
+    parameters {
+       string (name: 'BASE_URL', defaultValue: 'http://automationpractice.com',
+              description: 'Production URI')
+       string (name: 'BROWSER', defaultValue: 'chrome',
+              description: 'Browser for test execution')
+       string (name: 'REMOTE_URL', defaultValue: 'False',
+              description: 'Default remote url value')
+       string (name: 'HEADLESS_CHROME', defaultValue: 'False',
+              description: 'Headless chrome settings')
+       string (name: 'TEST_SUITE_TAG', defaultValue: 'LoginTest',
+              description: 'Test Suite')
+    }
+    /*options { 
+        retry(3) 
+    }*/
+    stages {
+        stage ("Stage 1: Get agent details") {
+            steps {
+                sh '''#!/bin/bash
+                    python --version
+                    whoami
+                    sw_vers
+                    pwd
+                    ls -l
+                '''
+            }
+        }
+        stage ("Stage 2: Run robotframework tests.") {
+            // Run parallel tests in chrome (chromedriver), firefox (geckodriver) and safari.
+            // BROWSER values are hard coded. HEADLESS_CHROME is only applicable for chrome.
+            post{
+                failure{
+                        publishHTML([
+                            allowMissing: false, 
+                            keepAll: true,
+                            alwaysLinkToLastBuild: true,
+                            reportDir: 'Results', 
+                            reportFiles: 'report.html', 
+                            reportName: 'Robot Framework Report - chrome', 
+                            reportTitles: 'Reports: chrome'
+                        ])
+                }
+            }
+            steps {
+                sh '''#!/bin/bash
+                    pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:$BROWSER -v REMOTE_URL:$REMOTE_URL -v HEADLESS_CHROME:$HEADLESS_CHROME -i $TEST_SUITE_TAG .
+                '''
+            }
+        }
+    }
+    post {
+        always {
+            /* mail to:"youremail@gmail.com",
+                subject:"STATUS FOR PROJECT: ${currentBuild.fullDisplayName}",
+                body: "RESULT: ${currentBuild.result}" */
+            echo "Current Build Result: ${currentBuild.result}"
+            echo "Current Build Current Result: ${currentBuild.currentResult}"
+            echo "Current Build ID: ${currentBuild.id}"
+        }
+
+    }
+ }
