@@ -1,7 +1,6 @@
 *** Settings ***
 Documentation        [DEMO] This test suite should test the login functionality of the automation practice website
-Default Tags         AddProductToCartTest    Demo    FUNCTIONALITY    HIGH
-Force Tags           REGRESSION
+Force Tags           AddProductToCartTest    REGRESSION    Demo    FUNCTIONALITY    HIGH
 Test Setup           Run Keywords    Open Browser To "${BASE_URL}"
 ...                  AND    Set Test Documentation    Test Case: ${TEST NAME}
 Test Teardown        Run Keywords    Close Browser

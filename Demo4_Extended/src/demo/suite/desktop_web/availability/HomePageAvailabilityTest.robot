@@ -1,7 +1,6 @@
 *** Settings ***
 Documentation        [DEMO] This test suite should test the login functionality of the automation practice website
-Default Tags         HomePageAvailabilityTest    Demo    AVAILABILITY    HIGH
-Force Tags           REGRESSION
+Force Tags           HomePageAvailabilityTest    REGRESSION    Demo    AVAILABILITY    HIGH
 Test Setup           Run Keywords    Open Browser To "${BASE_URL}"
 ...                  AND    Set Test Documentation    Test Case: ${TEST NAME}
 Test Teardown        Update SauceLabs Job For Passing Tests
