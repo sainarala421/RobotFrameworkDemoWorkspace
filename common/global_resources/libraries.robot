@@ -8,6 +8,7 @@ Library           String
 Library           DateTime
 Library           XvfbRobot
 Library           HttpLibrary.HTTP
+Library           FakerLibrary
 Resource          capabilities.robot
 Resource          constants.robot
 Resource          filepaths.robot
