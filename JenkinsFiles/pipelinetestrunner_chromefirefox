@@ -58,7 +58,7 @@
                     }
                     steps {
                         sh '''#!/bin/bash
-                            pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:chrome -v REMOTE_URL:$REMOTE_URL -v HEADLESS_CHROME:$HEADLESS_CHROME -i $TEST_SUITE_TAG .
+                            robot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:chrome -v REMOTE_URL:$REMOTE_URL -v HEADLESS_CHROME:$HEADLESS_CHROME -i $TEST_SUITE_TAG .
                         '''
                     }
                 }
@@ -78,7 +78,7 @@
                     }
                     steps {
                         sh '''#!/bin/bash
-                            pybot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:firefox -v REMOTE_URL:$REMOTE_URL -i $TEST_SUITE_TAG .
+                            robot --argumentfile argument_file.robot -v BASE_URL:$BASE_URL -v BROWSER:firefox -v REMOTE_URL:$REMOTE_URL -i $TEST_SUITE_TAG .
                         '''
                     }
                 }
