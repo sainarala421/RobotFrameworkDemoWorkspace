@@ -84,9 +84,9 @@ Run And Wait Until Keyword Succeeds
    ${isEqual}=    Run Keyword And Return Status    Should Be Equal As Strings    ${p_arg2}    No Operation
    # Run Keyword If     '${p_arg2}' == 'No Operation'
    Run Keyword If    ${isEqual}
-   ...    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}    ${p_keyword}    ${p_arg1}
+   ...    Wait Until Keyword Succeeds    ${RETRY}    ${RETRY_INTERVAL}    ${p_keyword}    ${p_arg1}
    ...    ELSE
-   ...    Wait Until Keyword Succeeds    ${TIMEOUT}    ${INTERVAL}    ${p_keyword}    ${p_arg1}    ${p_arg2}
+   ...    Wait Until Keyword Succeeds    ${RETRY}    ${RETRY_INTERVAL}    ${p_keyword}    ${p_arg1}    ${p_arg2}
 
 Generate Date Time With Milliseconds
     [Documentation]    This keyword generates date time with milliseconds

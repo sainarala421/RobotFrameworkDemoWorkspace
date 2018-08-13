@@ -2,8 +2,8 @@
 #=================================================#
 #                TIMEOUT / WAIT                   #
 #=================================================#
-${TIMEOUT}                10x
-${INTERVAL}               3s
+${RETRY}                  10x
+${RETRY_INTERVAL}         3s
 ${INTERNAL_TIMEOUT}       10s
 ${INTERNAL_INTERVAL}      2s
 ${SELENIUM_SPEED}         0.5
