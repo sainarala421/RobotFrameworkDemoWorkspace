@@ -104,52 +104,78 @@ source ~/.bash_profile
 Include the `argument_file.txt` found at the top-level directory for non-changing arguments on run time. 
 To run a particular test suite, using the same terminal where the bash_profile was sourced, run the following:
 ```bash
-pybot --argumentfile argument_file.robot --variable BROWSER:chrome --variable BASE_URL:http://automationpractice.com --variable REMOTE_URL:False --suite AddProductToCartTest .
+robot --argumentfile argument_file.robot --variable BROWSER:chrome --variable BASE_URL:http://automationpractice.com --variable REMOTE_URL:False --suite AddProductToCartTest .
 ```
 
-Tests may also be filtered using tags defined in a test suite's `Default Tags`
+Tests may also be filtered using tags defined in a test suite's `Default Tags`, `Force Tags` or in the `Test Case` level tags
 setting table:
 ```bash
-pybot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -v REMOTE_URL:False -v HEADLESS_CHROME:True -i REGRESSION .
+robot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -v REMOTE_URL:False -v HEADLESS_CHROME:True -i REGRESSION .
 ```
-Running Tests : Headless Chrome
--------------------------------
+Running Tests : Headless Chrome Locally
+---------------------------------------
 Running in Headless Chrome.
 Set `HEADLESS_CHROME` to `True`.
 ```bash
-pybot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -v REMOTE_URL:False -v HEADLESS_CHROME:True -i LoginTest .
+robot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -v HEADLESS_CHROME:True -i LoginTest .
 ```
 
 Running in non-headless Chrome.
 Set `HEADLESS_CHROME` to `False`.
 ```bash
-pybot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -v REMOTE_URL:False -v HEADLESS_CHROME:False -i DataDrivenLoginTest .
+robot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -v HEADLESS_CHROME:False -i DataDrivenLoginTest .
 ```
 
 Or remove the variable `HEADLESS_CHROME`
 ```bash
-pybot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -v REMOTE_URL:False -i DataDrivenLoginTest .
+robot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -i DataDrivenLoginTest .
 ```
+
 Running Tests : Other browsers
 ------------------------------
 Running tests in `firefox` or other browsers, update the `BROWSER` value to the applicable browser.
 ```bash
-pybot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:firefox -v REMOTE_URL:False -i DataDrivenLoginTest .
+robot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:firefox -v REMOTE_URL:False -i DataDrivenLoginTest .
 ```
-Running Tests : Selenium Grid
------------------------------
-Running tests in Selenium Grid, set `REMOTE_URL` to `TRUE` or remove the `REMOTE_URL` variable.
+Running Tests Remotely : Selenium Grid
+--------------------------------------
+Running tests in Selenium Grid, set `REMOTE_URL` to `TRUE` or to Selenium Grid URI: `http://localhost:4444/wd/hub`
 NOTE: Run selenium grid first.
 ```bash
 docker-compose -f DockerFiles/docker-compose.yml up
 ```
 Then run the script on Remote URL using the following script.
 ```bash
-pybot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:firefox -v REMOTE_URL:True -i DataDrivenLoginTest .
+robot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:firefox -v REMOTE_URL:True -i DataDrivenLoginTest .
 ```
 Or
 ```bash
-pybot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:firefox -i DataDrivenLoginTest .
+robot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:firefox -REMOTE_URL:http://localhost:4444/wd/hub -i DataDrivenLoginTest .
+```
+
+Running Tests Remotely: Sauce Labs
+----------------------------------
+Running tests in Selenium Grid, set `REMOTE_URL` to the Saucelabs URI: `http://ondemand.saucelabs.com/wd/hub`
+NOTE: Creat a Sauce Labs account then save the Sauce Labs Username and Access Key as environment variables
+GET SAUCELABS DETAILS:
+1. Signup with Sauce Labs: `https://saucelabs.com`
+2. Sign in to Sauce Labs
+3. Click user icon on top right
+3. Go to `User Settings` > Click`Show`
+4. Input user password And click the Access key (which is then AutomAticAlly copied toclipboArd)
+5. Get the Sauce labs remote URL.
+6. Go to Dashboard > AUTOMATED TESTS tab And copy the URI in the instructions: `http://ondemand.saucelabs.com/wd/hub`
+
+Save the sauce labs credentials in `bash_profile`
+```bash
+export SAUCE_USERNAME="<your username>"
+export PATH=$PATH:$SAUCE_USERNAME
+export SAUCE_ACCESS_KEY="<your sauce labs access key>"
+export PATH=$PATH:$SAUCE_ACCESS_KEY
+```
+Then run the script on Remote URL using the following script.
+```bash
+robot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:firefox -v REMOTE_URL:http://ondemand.saucelabs.com/wd/hub -i DataDrivenLoginTest .
 ```
 
 Jenkins Setup (Optional)
