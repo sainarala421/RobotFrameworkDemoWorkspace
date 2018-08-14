@@ -22,7 +22,7 @@ Directory | Description
 `Demo4_Extended` | contains the workspace for the composite and extended robot framework for http://automationpractice.com
 `Demo4_Extended\src\demo\resources` | contains the keywords specific for Demo4_Extended
 `Demo4_Extended\src\demo\resources` | contains the test suites for Demo4_Extended
-`Demo4_Extended\src\demo\suite\availability` | test suites with test cases for checking pages' availability
+`Demo4_Extended\src\demo\suite\availability` | test suites with test cases for checking pages' availability. assert that all page's elements are visible
 `Demo4_Extended\src\demo\suite\functionality` | test suites with test cases checking pages' functionality
 `Demo4_Extended\src\demo\suite\endtoend` | test suites with end to end test cases
 `Results` | directory for report and logs, created on run time
@@ -36,19 +36,23 @@ File | Description
 
 Prerequisites
 --------------
+- [x]  Web Drivers: [chromedriver](http://chromedriver.chromium.org/), [geckodriver](https://github.com/mozilla/geckodriver/releases)
 - [x] [Python 2.7](https://www.python.org/download/releases/2.7/)
 - [x] [Git](https://git-scm.com/)
 - [x] [Sublime Text 2](https://www.sublimetext.com/2) or any text editor
 - [x] `Web browsers. Note the supported web browser version for web drivers`
 
-Optional Applications
----------------------
-- [ ]  :octocat: `git repository for your code`
+Optional Applications / Services
+--------------------------------
+- [ ]  :octocat: `git repository for your code` - if you are running on `Jenkins pipeline`
 - [ ] [Jenkins war file](https://jenkins.io/download/)
 - [ ] [Java](http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
-- [ ] [Report Portal](http://reportportal.io/)
+- [ ] [Sauce Labs] (https://saucelabs.com/)
 - [ ] [Docker](https://www.docker.com/)
-- [ ] [docker-Selenium](https://github.com/SeleniumHQ/docker-selenium)
+- [ ] [docker-Selenium](https://github.com/SeleniumHQ/docker-selenium), dockerised Selenium Grid
+- [ ] [Report Portal](http://reportportal.io/)
+- [ ] [Phabricator](https://www.phacility.com/) 
+- [ ] [archanist](https://github.com/phacility/arcanist), the command line tool for Phabricator
 
 Webdriver Setup
 -----------------
@@ -67,7 +71,6 @@ sudo mv -f ~/Downloads/chromedriver /usr/local/share/chromedriver
 # Create a symlink
 sudo ln -s /usr/local/share/chromedriver /usr/local/bin/chromedriver
 ```
-
 3. Do the same steps for geckodriver
 4. Add the following in the bash_profile
 ```bash
@@ -83,6 +86,10 @@ export GECKODRIVER="/usr/local/bin/geckodriver"
 export PATH=$PATH:$GECKODRIVER
 ```
 5. Save the changes to bash_profile.
+6. Source the bash_profile
+```bash
+source ~/.bash_profile
+```
 
 Installation using pip
 ----------------------
@@ -93,9 +100,24 @@ Run the following in the terminal:
 ```bash
 pip install -e .
 ```
+Or
+```bash
+sudo pip install -e .
+```
+Note: An error may sometimes occur, either rerun the pip install script or search and troubleshoot according to the error message.
 
 Running Tests
--------------
+--------------
+Method | Script
+-------------- | -------------
+Run all tests in a directory | `robot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome Demo4_Extended`
+Run a specific test via filename | `robot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome Demo3_Composite/DemoCompositeLogintTest.robot`
+Run tests by suite | `robot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -s HomePageAvailabilityTest .`
+Run tests by tag | `robot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -i REGRESSION .`
+Run tests via tag wildcards | `robot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSER:chrome -i Login* .`
+
+Running Tests in Demo4_Extended Directory
+------------------------------------------
 Source your bash_profile via the following script in the terminal.
 ```bash
 source ~/.bash_profile
@@ -156,15 +178,16 @@ robot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSE
 Running Tests Remotely: Sauce Labs
 ----------------------------------
 Running tests in Selenium Grid, set `REMOTE_URL` to the Saucelabs URI: `http://ondemand.saucelabs.com/wd/hub`
-NOTE: Creat a Sauce Labs account then save the Sauce Labs Username and Access Key as environment variables
+NOTE: Creat a Sauce Labs account then save the Sauce Labs Username and Access Key as environment variables.
+
 GET SAUCELABS DETAILS:
-1. Signup with Sauce Labs: `https://saucelabs.com`
-2. Sign in to Sauce Labs
-3. Click user icon on top right
-3. Go to `User Settings` > Click`Show`
-4. Input user password And click the Access key (which is then AutomAticAlly copied toclipboArd)
+1. Signup with Sauce Labs: `https://saucelabs.com`.
+2. Sign in to Sauce Labs.
+3. Click user icon on top right.
+3. Go to `User Settings` > Click `Show`.
+4. Input user password And click the Access key (which is then AutomAticAlly copied toclipboArd).
 5. Get the Sauce labs remote URL.
-6. Go to Dashboard > AUTOMATED TESTS tab And copy the URI in the instructions: `http://ondemand.saucelabs.com/wd/hub`
+6. Go to Dashboard > AUTOMATED TESTS tab And copy the URI in the instructions: `http://ondemand.saucelabs.com/wd/hub`.
 
 Save the sauce labs credentials in `bash_profile`
 ```bash
@@ -224,7 +247,6 @@ Docker-Selenium Setup
 ```bash
 git clone https://github.com/SeleniumHQ/docker-selenium.git
 ```
-
 3. Build the images. cd to the `docker-selenium` directory, then run: 
 ```bash
 VERSION=local make build
