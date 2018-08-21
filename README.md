@@ -177,7 +177,7 @@ robot -A argument_file.robot -v BASE_URL:http://automationpractice.com -v BROWSE
 
 Running Tests Remotely: Sauce Labs
 ----------------------------------
-Running tests in Selenium Grid, set `REMOTE_URL` to the Saucelabs URI: `http://ondemand.saucelabs.com/wd/hub`
+Running tests in Sauce Labs, set `REMOTE_URL` to the Saucelabs URI: `saucelabs`
 NOTE: Creat a Sauce Labs account then save the Sauce Labs Username and Access Key as environment variables.
 
 GET SAUCELABS DETAILS:
